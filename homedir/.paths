@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+
+gnu_utils=(
+  coreutils
+  findutils
+  # inetutils
+  gnu-sed
+  grep
+)
+
+# Homebrew
+export PATH="/usr/local/sbin:$PATH"
+
+for gnu_path in ${gnu_utils[@]}; do
+  export PATH="/usr/local/opt/${gnu_path}/libexec/gnubin:$PATH"
+done
+
+fpath=(/usr/local/share/zsh-completions $fpath)
