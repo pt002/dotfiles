@@ -163,8 +163,30 @@ ok
 bot "use preferred dock"
 # Copy dock plist
 running "copying dock plist"
+killall Dock
 cp -f $HOME/.dotfiles/configs/com.apple.dock.plist $HOME/Library/Preferences/
 ok
+
+###############################################################################
+bot "configure terminal & iterm2"
+###############################################################################
+
+running "installing dark themes for iterm (opening file)"
+open "./configs/Solarized Darcula.itermcolors"
+open "./configs/Solarized Dark Higher Contrast.itermcolors"
+open "./configs/SpaceGray.itermcolors"; ok
+
+running "installing dark themes for term (opening file)"
+open "./configs/pt_shell.terminal"; ok
+
+running "set normal font"
+defaults write com.googlecode.iterm2 "Normal Font" -string "HackNerdFontComplete-Regular 12"; ok
+
+running "configuring iterm preferences"
+defaults write com.googlecode.iterm2 PromptOnQuit 0
+defaults write com.googlecode.iterm2 QuitWhenAllWindowsClosed 1
+defaults write com.googlecode.iterm2 TabStyleWithAutomaticOption 5
+defaults write com.googlecode.iterm2 TabViewType 0; ok
 
 warn "reboot for persoanlization to take effect and enjoy!"
 bot "personalization complete"

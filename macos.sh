@@ -327,18 +327,3 @@ defaults write com.apple.finder _FXSortFoldersFirst -bool true; ok
 ## Enable “Do Not Track”
 #running "enable 'do no track'"
 #defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true; ok
-
-###############################################################################
-bot "configure terminal & iterm2"
-###############################################################################
-
-running "installing dark themes for iterm (opening file)"
-open "./configs/Solarized Darcula.itermcolors"
-open "./configs/Solarized Dark Higher Contrast.itermcolors"
-open "./configs/SpaceGray.itermcolors"; ok
-
-running "installing dark themes for term (opening file)"
-open "./configs/pt_shell.terminal"; ok
-
-running "set normal font"
-defaults write com.googlecode.iterm2 "Normal Font" -string "HackNerdFontComplete-Regular 12"; ok
