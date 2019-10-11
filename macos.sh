@@ -193,7 +193,7 @@ sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.screensharing.pli
 
 ## # Remote login (SSH); Allow Administrators
 running "enable remote login"
-sudo systemsetup -setremotelogin on
+sudo systemsetup -setremotelogin on; ok
 #dseditgroup -o create -q com.apple.access_ssh
 #dseditgroup -o edit -a Administrators -t group com.apple.access_ssh; ok
 # For user
