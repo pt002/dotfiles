@@ -136,7 +136,7 @@ if [[ $? = 0 ]]; then
     fi
   read -r "git_user?What is your git username? "
 
-  running "replacing items in .gitconfig with your info ($COL_YELLOW$fullname, $email, $githubuser$COL_RESET)"
+  running "replacing items in .gitconfig with your info ($COL_YELLOW$name, $email, $git_user$COL_RESET)"
   gsed -i 's/GIT_NAME/'$name'/' $HOME/.gitconfig
   gsed -i 's/GIT_EMAIL/'$email'/' $HOME/.gitconfig
   gsed -i 's/GIT_USER/'$git_user'/' $HOME/.gitconfig
@@ -187,6 +187,19 @@ defaults write com.googlecode.iterm2 PromptOnQuit 0
 defaults write com.googlecode.iterm2 QuitWhenAllWindowsClosed 1
 defaults write com.googlecode.iterm2 TabStyleWithAutomaticOption 5
 defaults write com.googlecode.iterm2 TabViewType 0; ok
+
+###############################################################################
+bot "dotfiles dir"
+###############################################################################
+running "creating symlink to dotfiles dir"
+if [[ -L $HOME/.dotfiles ]]; then
+  running "dotfiles symlink already exist"
+  ok
+else
+  running "creating dotfiles symlink..."
+  rm -rf $HOME/.dotfiles
+  ln -s $HOME/projects/dotfiles $HOME/.dotfiles
+fi
 
 warn "reboot for persoanlization to take effect and enjoy!"
 bot "personalization complete"
