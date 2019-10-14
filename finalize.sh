@@ -199,6 +199,7 @@ else
   running "creating dotfiles symlink..."
   rm -rf $HOME/.dotfiles
   ln -s $HOME/projects/dotfiles $HOME/.dotfiles
+  print -n "\tlinked"; ok
 fi
 
 warn "reboot for persoanlization to take effect and enjoy!"
