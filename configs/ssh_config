@@ -1,3 +1,19 @@
+Host *github.com*
+  User ptongsak
+  IdentityFile %d/.ssh/id_ed25519
+
+Host *-gns* nsg7-portalcn0*.linkedin.biz
+  ForwardAgent yes
+  ControlMaster auto
+  ControlPath ~/.ssh/tmp/%h_%p_%r
+  ControlPersist 8h
+
+Host abe2*.gts* ash1*.gts* *.internal.linkedin.cn *-cn-*.gts*
+  ProxyCommand ssh -q -W %h:%p nsg7-portalcn01.linkedin.biz
+
+Host *.gts*
+  Proxycommand ssh -q -W %h:%p lca1-gns01.linkedin.biz
+
 Host *
   IdentityFile %d/.ssh/%u_at_linkedin.com_ssh_key
     HostkeyAlgorithms +ssh-dss
