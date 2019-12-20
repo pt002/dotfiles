@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+# Shortcuts
+alias lca1="ssh lca1"
+alias lva1="ssh lva1"
+alias ltx1="ssh ltx1"
+alias idb2="ssh idb2"
+alias nsg7="ssh nsg7"

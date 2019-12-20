@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
 #for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
-for file in $HOME/.{paths,exports,aliases}; do
+for file in $HOME/.{paths,exports,aliases,aliases_work}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
