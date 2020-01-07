@@ -12,7 +12,7 @@ Host abe2*.gts* ash1*.gts* *.internal.linkedin.cn *-cn-*.gts*
   ProxyCommand ssh -q -W %h:%p nsg7-portalcn01.linkedin.biz
 
 Host *.gts*
-  Proxycommand ssh -q -W %h:%p lca1-gns01.linkedin.biz
+  Proxycommand ssh -q -W %h:%p lca1
 
 Host *
   IdentityFile %d/.ssh/%u_at_linkedin.com_ssh_key
