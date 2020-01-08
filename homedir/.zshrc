@@ -13,6 +13,11 @@ for file in $HOME/.{paths,exports,aliases,aliases_work}; do
 done;
 unset file;
 
+for file in $HOME/.{ssh_work}; do
+	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;
+
 # History Time Format
 HIST_STAMPS="yyyy-mm-dd"
 
@@ -208,14 +213,5 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Setopt
-
 setopt extended_glob
 setopt hist_ignore_all_dups
-
-# ssh-agent
-if [ ! -S ~/.ssh/ssh_auth_sock ]; then
-eval `ssh-agent`
-ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
-fi
-export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
-ssh-add -l > /dev/null || ssh-add ~/.ssh/ptongsak_at_linkedin.com_ssh_key
