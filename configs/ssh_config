@@ -22,6 +22,7 @@ Host *
     UseKeychain yes
     AddKeysToAgent yes
     Ciphers aes128-cbc,aes128-ctr
+    KexAlgorithms +diffie-hellman-group14-sha1
 
 Host lca1
   Hostname lca1-gns01.linkedin.biz
