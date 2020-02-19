@@ -1,8 +1,15 @@
 #!/usr/bin/env zsh
 
-# Shortcuts
+# GNS Shortcuts
 alias lca1="ssh lca1"
 alias lva1="ssh lva1"
 alias ltx1="ssh ltx1"
 alias idb2="ssh idb2"
 alias nsg7="ssh nsg7"
+
+# Decrypt GPG file
+alias gpg_decrypt="gpg -d ~/'OneDrive - Microsoft'/gns_pass.gpg"
+
+# Console access
+alias screen_airconsole="screen /dev/cu.Airconsole-1 9600"
+alias screen_console="screen /dev/cu.usbserial-DN05LJKP 9600"
