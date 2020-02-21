@@ -13,3 +13,6 @@ alias gpg_decrypt="gpg -d ~/'OneDrive - Microsoft'/gns_pass.gpg"
 # Console access
 alias screen_airconsole="screen /dev/cu.Airconsole-1 9600"
 alias screen_console="screen /dev/cu.usbserial-DN05LJKP 9600"
+
+# GNSOps
+alias gns-ansible="cd ~/projects/lnkd/gns-ansible && gl"
