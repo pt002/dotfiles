@@ -9,7 +9,7 @@ Host *-gns* nsg7-portalcn0*.linkedin.biz
   ControlPersist 8h
 
 Host abe2*.gts* ash1*.gts* *.internal.linkedin.cn *-cn-*.gts*
-  ProxyCommand ssh -q -W %h:%p nsg7-portalcn01.linkedin.biz
+  ProxyCommand ssh -q -W %h:%p nsg7-cn
 
 Host *.gts*
   Proxycommand ssh -q -W %h:%p lca1
@@ -39,3 +39,6 @@ Host idb2
 
 Host nsg7
   Hostname nsg7-gns01.linkedin.biz
+
+Host nsg7-cn
+  Hostname nsg7-portalcn01.linkedin.biz

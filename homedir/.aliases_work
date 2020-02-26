@@ -6,6 +6,7 @@ alias lva1="ssh lva1"
 alias ltx1="ssh ltx1"
 alias idb2="ssh idb2"
 alias nsg7="ssh nsg7"
+alias nsg7-cn="ssh nsg7-cn"
 
 # Decrypt GPG file
 alias gpg_decrypt="gpg -d ~/'OneDrive - Microsoft'/gns_pass.gpg"
