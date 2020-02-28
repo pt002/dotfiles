@@ -1,5 +1,5 @@
 Host *github.com*
-  User ptongsak
+  User %u
   IdentityFile %d/.ssh/id_ed25519
 
 Host *-gns* nsg7-portalcn0*.linkedin.biz

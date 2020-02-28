@@ -92,7 +92,7 @@ POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='004'
 
 # RIGHT_PROMP
 # ===========================================================
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv pyenv vcs)
 POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=''
 POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR=' '
 POWERLEVEL9K_WHITESPACE_BETWEEN_RIGHT_SEGMENTS=''
@@ -110,7 +110,9 @@ POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='003'
 
 POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind git-remotebranch git-tagname)
 
-
+# virtualenv
+POWERLEVEL9K_VIRTUALENV_BACKGROUND='none'
+POWERLEVEL9K_VIRTUALENV_FOREGROUND='076'
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -215,3 +217,21 @@ source $ZSH/oh-my-zsh.sh
 # Setopt
 setopt extended_glob
 setopt hist_ignore_all_dups
+
+# pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+# virtualenvwrapper
+# We want to regularly go to our virtual environment directory
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/projects/lnkd
+# If in a given virtual environment, make a virtual environment directory
+# If one does not already exist
+mkdir -p $WORKON_HOME
+# Activate the new virtual environment by calling this script
+# Note that $USER will substitute for your current user
+if [ -f $HOME/.pyenv/versions/3.8.1/bin/virtualenvwrapper.sh ]; then
+      . $HOME/.pyenv/versions/3.8.1/bin/virtualenvwrapper.sh
+fi
