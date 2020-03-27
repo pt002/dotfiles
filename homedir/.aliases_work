@@ -1,12 +1,13 @@
 #!/usr/bin/env zsh
 
 # GNS Shortcuts
-alias lca1="ssh lca1"
-alias lva1="ssh lva1"
-alias ltx1="ssh ltx1"
-alias idb2="ssh idb2"
-alias nsg7="ssh nsg7"
-alias nsg7-cn="ssh nsg7-cn"
+alias lca1-gns01="ssh lca1-gns01"
+alias lva1-gns01="ssh lva1-gns01"
+alias ltx1-gns01="ssh ltx1-gns01"
+alias ltx1-gnsa01="ssh ltx1-gnsa01"
+alias idb2-gns01="ssh idb2-gns01"
+alias nsg7-gns01="ssh nsg7-gns01"
+alias nsg7-portalcn01="ssh nsg7-portalcn01"
 
 # Decrypt GPG file
 alias gpg_decrypt="gpg -d ~/'OneDrive - Microsoft'/gns_pass.gpg"

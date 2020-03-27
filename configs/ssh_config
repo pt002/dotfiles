@@ -9,10 +9,10 @@ Host *-gns* nsg7-portalcn0*.linkedin.biz
   ControlPersist 8h
 
 Host abe2*.gts* ash1*.gts* *.internal.linkedin.cn *-cn-*.gts*
-  ProxyCommand ssh -q -W %h:%p nsg7-cn
+  ProxyCommand ssh -q -W %h:%p nsg7-portalcn01
 
 Host *.gts*
-  Proxycommand ssh -q -W %h:%p lca1
+  Proxycommand ssh -q -W %h:%p lca1-gns01
 
 Host *
   IdentityFile %d/.ssh/%u_at_linkedin.com_ssh_key
@@ -26,20 +26,23 @@ Host *
     Ciphers aes128-cbc,aes128-ctr
     KexAlgorithms +diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
 
-Host lca1
+Host lca1-gns01
   Hostname lca1-gns01.linkedin.biz
 
-Host lva1
+Host lva1-gns01
   Hostname lva1-gns01.linkedin.biz
 
-Host ltx1
+Host ltx1-gnsa01
+  Hostname ltx1-gnsa01.linkedin.biz
+
+Host ltx1-gns01
   Hostname ltx1-gns01.linkedin.biz
 
-Host idb2
+Host idb2-gns01
   Hostname idb2-gns01.linkedin.biz
 
-Host nsg7
+Host nsg7-gns01
   Hostname nsg7-gns01.linkedin.biz
 
-Host nsg7-cn
+Host nsg7-portalcn01
   Hostname nsg7-portalcn01.linkedin.biz
