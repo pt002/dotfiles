@@ -17,7 +17,7 @@ alias screen_airconsole="screen /dev/cu.Airconsole-1 9600"
 alias screen_console="screen /dev/cu.usbserial-DN05LJKP 9600"
 
 # GNSOps
-alias gns-ansible="cd ~/projects/lnkd/gns-ansible && gl"
+alias gns-ans="cd ~/projects/lnkd/gns/gns-ansible && gl"
 
 # GlobalProtect
 alias gpro="~/'OneDrive - Microsoft'/scripts/gpro.sh"
