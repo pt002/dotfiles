@@ -2,6 +2,9 @@ Host *github.com*
   User %u
   IdentityFile %d/.ssh/id_ed25519
 
+Host *.linkedin.com
+  LogLevel error
+
 #Host *-gns* nsg7-portalcn0*.linkedin.biz
 #  ForwardAgent yes
 #  ControlMaster auto
