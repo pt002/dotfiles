@@ -27,7 +27,7 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup'
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; brew cask upgrade'
 
 # IP addresses
 alias getmyip='curl ifconfig.co && curl -4 ifconfig.co'
