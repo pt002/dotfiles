@@ -232,6 +232,6 @@ export PROJECT_HOME=$HOME/projects/lnkd
 mkdir -p $WORKON_HOME
 # Activate the new virtual environment by calling this script
 # Note that $USER will substitute for your current user
-if [ -f $HOME/.pyenv/versions/3.8.1/bin/virtualenvwrapper.sh ]; then
-      . $HOME/.pyenv/versions/3.8.1/bin/virtualenvwrapper.sh
+if [ -f $HOME/.pyenv/versions/3.8.5/bin/virtualenvwrapper.sh ]; then
+      . $HOME/.pyenv/versions/3.8.5/bin/virtualenvwrapper.sh
 fi
