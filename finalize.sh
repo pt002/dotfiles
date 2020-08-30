@@ -26,6 +26,14 @@ hist_files=(
 clear
 bot "commence personalization"
 
+# Ask for username (ssh keys)
+read -q "reply_username?Which username? "
+print "\n"
+
+# Ask if this a work or personal system
+read -q "reply_work?Is this a work laptop? [y|N] "
+print "\n"
+
 # Ask for the administrator password upfront
 bot "please enter your password for front loading..."
 sudo -v
@@ -54,6 +62,12 @@ else
         mv $HOME/.ssh/${sshkeys:t} $HOME/.ssh_backup/$now/${sshkeys:t}
         print "\n\tbackup saved in $HOME/.ssh_backup/$now"
       fi
+      if [[ $reply_work == y ]]; then
+        if [[ -e "$HOME/.ssh/${reply_username}_*" ]]; then
+          mkdir -p $HOME/.ssh_backup/$now
+          mv $HOME/.ssh/${sshkeys:t} $HOME/.ssh_backup/$now/${sshkeys:t}
+          print "\n\tbackup saved in $HOME/.ssh_backup/$now"
+        fi
       # symlink might still exist
       if [[ -L "$HOME/.ssh/${sshkeys:t}" ]]; then
         unlink $HOME/.ssh/${sshkeys:t} > /dev/null 2>&1
@@ -67,6 +81,23 @@ chmod 700 $HOME/.ssh && chmod 600 $HOME/.ssh/*
 running "updating authorized_keys..."
 cat $HOME/.ssh/id_ed25519.pub > $HOME/.ssh/authorized_keys
 ok
+
+bot "ssh config setup"
+action "creating symlinks for ssh config..."
+
+if [[ $reply_work == y ]]; then
+  if [[ -L $HOME/.ssh/custom.config ]]; then
+    running "ssh config symlink already exist"
+    ok
+  else
+    running "creating ssh config symlink..."
+    rm -rf $HOME/.ssh/custom.config
+    ln -s $HOME/projects/dotfiles/configs/ssh_config $HOME/.ssh/custom.config
+    print -n "\tlinked"; ok
+  fi
+else
+  ok "skipping for personal systems"
+fi
 
 bot "dotfiles setup"
 action "creating symlinks for project dotfiles..."
@@ -144,12 +175,16 @@ fi
 
 bot "configuring macos"
 running "macos system configurations"
-read -q "reply_mac?Do you want to run macos settings? [y|N] "
-print "\n"
-if [[ $reply_mac == y ]]; then
-  source ./macos.sh
-else
-  ok "skipping"
+if [[ $reply_work == y ]]; then
+    ok "skipping for work systems"
+  else
+  read -q "reply_mac?Do you want to run macos settings? [y|N] "
+  print "\n"
+    if [[ $reply_mac == y ]]; then
+      source ./macos.sh
+    else
+      ok "skipping"
+    fi
 fi
 
 bot "cleaning up history"
@@ -197,6 +232,16 @@ if [[ -L $HOME/.dotfiles ]]; then
   ok
 else
   running "creating dotfiles symlink..."
+  read -q "reply_git_repo_username?Whose is the git repo you want to clone "
+  print "\n"
+  read -q "reply_git_repo?Do you want to use ssh or https for cloning repo? [ssh|https] "
+  print "\n"
+  if [[ $reply_git_repo == ssh ]]; then
+    git clone git@github.com:$reply_git_repo_username/dotfiles.git $HOME/projects/dotfiles
+  else
+    git clone https://github.com/$reply_repo_username/dotfiles $HOME/projects/dotfiles
+  fi
+
   rm -rf $HOME/.dotfiles
   ln -s $HOME/projects/dotfiles $HOME/.dotfiles
   print -n "\tlinked"; ok
