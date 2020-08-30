@@ -194,17 +194,13 @@ fi
 
 bot "configuring macos"
 running "macos system configurations"
-if [[ $reply_work == y ]]; then
-    ok "skipping for work systems"
+read -q "reply_mac?Do you want to run macos settings? [y|N] "
+print "\n"
+  if [[ $reply_mac == y ]]; then
+    source ./macos.sh
   else
-  read -q "reply_mac?Do you want to run macos settings? [y|N] "
-  print "\n"
-    if [[ $reply_mac == y ]]; then
-      source ./macos.sh
-    else
-      ok "skipping"
-    fi
-fi
+    ok "skipping"
+  fi
 
 bot "cleaning up history"
 # Clear history files
