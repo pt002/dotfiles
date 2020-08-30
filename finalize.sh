@@ -27,8 +27,8 @@ clear
 bot "commence personalization"
 
 # Ask for username (ssh keys)
-#read -q "reply_username?Which username? "
-#print "\n"
+read -r "reply_username?Which username? "
+print "\n"
 
 # Ask if this a work or personal system
 read -q "reply_work?Is this a work laptop? [y|N] "
@@ -62,12 +62,6 @@ else
         mv $HOME/.ssh/${sshkeys:t} $HOME/.ssh_backup/$now/${sshkeys:t}
         print "\n\tbackup saved in $HOME/.ssh_backup/$now"
       fi
-      # if [[ $reply_work == y ]]; then
-        # if [[ -e "$HOME/.ssh/${reply_username}_*" ]]; then
-          # mkdir -p $HOME/.ssh_backup/$now
-          # mv $HOME/.ssh/${sshkeys:t} $HOME/.ssh_backup/$now/${sshkeys:t}
-          # print "\n\tbackup saved in $HOME/.ssh_backup/$now"
-        # fi
       # symlink might still exist
       if [[ -L "$HOME/.ssh/${sshkeys:t}" ]]; then
         unlink $HOME/.ssh/${sshkeys:t} > /dev/null 2>&1
@@ -77,9 +71,34 @@ else
     fi
   done
 fi
+
+if [[ $reply_work == y ]]; then
+  for sshkeys in "${gdrive}"/Keys/Work_Shell/*(.); do
+    ## Check if GDrive is synced, if so create symlinks
+    if [[ -L "$HOME/.ssh/${sshkeys:t}" ]]; then
+      running "ssh key symlink for ${sshkeys:t} already exist"
+      ok
+    else
+      running "creating ssh key symlink for ${sshkeys:t}..."
+      if [[ -e "$HOME/.ssh/id_*" ]]; then
+        mkdir -p $HOME/.ssh_backup/$now
+        mv $HOME/.ssh/${sshkeys:t} $HOME/.ssh_backup/$now/${sshkeys:t}
+        print "\n\tbackup saved in $HOME/.ssh_backup/$now"
+      fi
+      # symlink might still exist
+      if [[ -L "$HOME/.ssh/${sshkeys:t}" ]]; then
+        unlink $HOME/.ssh/${sshkeys:t} > /dev/null 2>&1
+      fi
+      ln -s ${sshkeys} $HOME/.ssh/${sshkeys:t}
+      print -n "\tlinked"; ok
+    fi
+  done
+fi
+
 chmod 700 $HOME/.ssh && chmod 600 $HOME/.ssh/*
 running "updating authorized_keys..."
 cat $HOME/.ssh/id_ed25519.pub > $HOME/.ssh/authorized_keys
+cat "$HOME/.ssh/${reply_username}_*.pub" >> $HOME/.ssh/authorized_keys
 ok
 
 bot "ssh config setup"
@@ -232,20 +251,19 @@ if [[ -L $HOME/.dotfiles ]]; then
   ok
 else
   running "creating dotfiles symlink..."
-  # read -q "reply_git_repo_username?Whose is the git repo you want to clone "
-  # print "\n"
-  # read -q "reply_git_repo?Do you want to use ssh or https for cloning repo? [ssh|https] "
-  # print "\n"
-  # if [[ $reply_git_repo == ssh ]]; then
-    # git clone git@github.com:$reply_git_repo_username/dotfiles.git $HOME/projects/dotfiles
-  # else
-    # git clone https://github.com/$reply_repo_username/dotfiles $HOME/projects/dotfiles
-  # fi
+  read -r "reply_git_repo_username?Whose git repo do you want to clone? "
+  read -r "reply_git_repo?Do you want to use ssh or https for cloning repo? [ssh|https] "
+  print "\n"
+  if [[ $reply_git_repo == ssh ]]; then
+    git clone git@github.com:$reply_git_repo_username/dotfiles.git $HOME/projects/dotfiles
+  else
+    git clone https://github.com/$reply_repo_username/dotfiles $HOME/projects/dotfiles
+  fi
 
   rm -rf $HOME/.dotfiles
   ln -s $HOME/projects/dotfiles $HOME/.dotfiles
   print -n "\tlinked"; ok
 fi
 
-warn "reboot for persoanlization to take effect and enjoy!"
+warn "reboot for personalization to take effect and enjoy!"
 bot "personalization complete"
