@@ -98,7 +98,9 @@ fi
 chmod 700 $HOME/.ssh && chmod 600 $HOME/.ssh/*
 running "updating authorized_keys..."
 cat $HOME/.ssh/id_ed25519.pub > $HOME/.ssh/authorized_keys
-cat "$HOME/.ssh/${reply_username}_"*.pub >> $HOME/.ssh/authorized_keys
+if [[ $reply_work == y ]]; then
+  cat "$HOME/.ssh/${reply_username}_"*.pub >> $HOME/.ssh/authorized_keys
+fi
 ok
 
 bot "ssh config setup"
