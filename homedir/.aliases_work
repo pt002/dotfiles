@@ -7,6 +7,7 @@ alias ltx1-gns01="ssh ltx1-gns01"
 alias ltx1-gnsa01="ssh ltx1-gnsa01"
 alias idb2-gns01="ssh idb2-gns01"
 alias nsg7-gns01="ssh nsg7-gns01"
+alias nsg7-gnsa01="ssh nsg7-gnsa01"
 alias nsg7-portalcn01="ssh nsg7-portalcn01"
 
 # Decrypt GPG file
