@@ -2,11 +2,16 @@
 
 # GNS Shortcuts
 alias lca1-gns01="ssh lca1-gns01"
+alias lca1-gns02="ssh lca1-gns02"
 alias lva1-gns01="ssh lva1-gns01"
+alias lva1-gns02="ssh lva1-gns02"
 alias ltx1-gns01="ssh ltx1-gns01"
+alias ltx1-gns02="ssh ltx1-gns02"
 alias ltx1-gnsa01="ssh ltx1-gnsa01"
 alias idb2-gns01="ssh idb2-gns01"
+alias idb2-gns02="ssh idb2-gns02"
 alias nsg7-gns01="ssh nsg7-gns01"
+alias nsg7-gns02="ssh nsg7-gns02"
 alias nsg7-gnsa01="ssh nsg7-gnsa01"
 alias nsg7-portalcn01="ssh nsg7-portalcn01"
 
