@@ -68,8 +68,8 @@ bot "configure gerneral system ui/ux"
 
 ## # Appearance: Dark mode
 #sudo defaults write /Library/Preferences/.GlobalPreferences.plist _HIEnableThemeSwitchHotKey -bool true
-#running "setting dark appearance"
-#defaults write NSGlobalDomain AppleInterfaceStyle "Dark"; ok
+running "setting dark appearance"
+defaults write NSGlobalDomain AppleInterfaceStyle "Dark"; ok
 
 ## # Accent Color: Graphite
 running "accent color to graphite"
