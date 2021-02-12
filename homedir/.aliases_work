@@ -14,6 +14,7 @@ alias nsg7-gns01="ssh nsg7-gns01"
 alias nsg7-gns02="ssh nsg7-gns02"
 alias nsg7-gnsa01="ssh nsg7-gnsa01"
 alias nsg7-portalcn01="ssh nsg7-portalcn01"
+alias pt="ssh ptongsak-ld1"
 
 # Decrypt GPG file
 alias gpg_decrypt="gpg -d ~/'OneDrive - Microsoft'/gns_pass.gpg"
