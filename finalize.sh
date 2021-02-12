@@ -14,11 +14,11 @@ logfile="finalize_$now.log"
 source ./libs/echos.sh
 source ./libs/installers.sh
 
-# Google Backup and Sync
+# Google Backup and Sync / Google Drive
 #gdrive="$HOME/Google Drive"
 
-# Google Drive File Stream
-gdrive="$HOME/Google Drive File Stream/My Drive"
+# Google Drive
+gdrive="/Volumes/GoogleDrive/My Drive"
 
 hist_files=(
   .bash_history
