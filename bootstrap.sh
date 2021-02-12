@@ -120,6 +120,12 @@ for b_casks in ${casks[@]}; do
   cask_install ${b_casks}
 done
 
+bot "installing speedtest"
+brew tap teamookla/speedtest
+for b_speed in ${speed[@]}; do
+  cask_install ${b_speed} --force
+done
+
 bot "installing brew fonts"
 brew tap homebrew/cask-fonts
 for b_fonts in ${fonts[@]}; do
