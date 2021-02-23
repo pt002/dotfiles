@@ -9,7 +9,12 @@ gnu_utils=(
 )
 
 # Homebrew
-export PATH="/usr/local/sbin:$PATH"
+if [[ -d /usr/local/sbin ]]; then
+      export PATH="/usr/local/sbin:$PATH"
+fi
+if [[ -d /opt/homebrew/bin ]]; then
+      export PATH="/opt/homebrew/bin:$PATH"
+fi
 
 for gnu_path in ${gnu_utils[@]}; do
   export PATH="/usr/local/opt/${gnu_path}/libexec/gnubin:$PATH"
