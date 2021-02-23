@@ -179,9 +179,27 @@ plugins=(alias-finder
   colored-man-pages
   )
 
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+if [[ -d /usr/local/share/zsh-autosuggestions ]]; then
+	     source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+		 else
+			 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+if [[ -d /usr/local/share/zsh-syntax-highlighting ]]; then
+	     source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+		 else
+			 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+if [[ -d /usr/local/share/zsh-history-substring-search ]]; then
+	     source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+		 else
+			 source /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+fi
+
+#source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # Skip verifications of insecure directories
 export ZSH_DISABLE_COMPFIX=true
