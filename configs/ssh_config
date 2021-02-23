@@ -1,9 +1,9 @@
 Host *github.com*
-  User %u
+  User git
   IdentityFile %d/.ssh/id_ed25519
 
 #Host *.linkedin.com
-#  LogLevel error 
+#  LogLevel error
 
 Host *
   ForwardAgent yes
