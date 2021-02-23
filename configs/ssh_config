@@ -1,5 +1,5 @@
 Host *github.com*
-  User git
+# User %u
   IdentityFile %d/.ssh/id_ed25519
 
 #Host *.linkedin.com
