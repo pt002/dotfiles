@@ -20,7 +20,9 @@ if [[ -d /opt/homebrew/bin ]]; then
     export PATH="/opt/homebrew/opt/${gnu_path}/libexec/gnubin:$PATH"
   done
 else
+  for gnu_path in ${gnu_utils[@]}; do
   export PATH="/usr/local/opt/${gnu_path}/libexec/gnubin:$PATH"
+  done
 fi
 
 #for gnu_path in ${gnu_utils[@]}; do
