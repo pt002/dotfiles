@@ -111,13 +111,13 @@ bot "ssh config setup"
 action "creating symlinks for ssh config..."
 
 if [[ $reply_work == y ]]; then
-  if [[ -L $HOME/.ssh/custom.config ]]; then
+  if [[ -L $HOME/.ssh/config.custom ]]; then
     running "ssh config symlink already exist"
     ok
   else
     running "creating ssh config symlink..."
-    rm -rf $HOME/.ssh/custom.config
-    ln -s $HOME/projects/dotfiles/configs/ssh_config $HOME/.ssh/custom.config
+    rm -rf $HOME/.ssh/config.custom
+    ln -s $HOME/projects/dotfiles/configs/ssh_config $HOME/.ssh/config.custom
     print -n "\tlinked"; ok
   fi
 else
