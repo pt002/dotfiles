@@ -245,6 +245,13 @@ defaults write com.googlecode.iterm2 TabStyleWithAutomaticOption 5
 defaults write com.googlecode.iterm2 TabViewType 0; ok
 
 ###############################################################################
+bot "configure moom"
+###############################################################################
+
+running "configuring moom preferences"
+defaults import com.manytricks.Moom ~/.dotfiles/configs/moom.plist
+
+###############################################################################
 bot "dotfiles dir"
 ###############################################################################
 running "creating symlink to dotfiles dir"
