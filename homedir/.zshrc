@@ -175,6 +175,7 @@ POWERLEVEL9K_VIRTUALENV_FOREGROUND='076'
 plugins=(alias-finder
   brew
   git
+  gh
   history
   colored-man-pages
   )
