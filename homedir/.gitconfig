@@ -21,7 +21,7 @@
   # https://git-scm.com/docs/git-update-index#_untracked_cache
   untrackedCache = true
 
-  editor = atom --wait
+  editor = code --wait
 
   hooksPath = $HOME/.git_template/hooks
 
