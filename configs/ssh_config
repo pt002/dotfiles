@@ -1,13 +1,20 @@
-Host *github.com*
- # User %u
-  IdentityFile %d/.ssh/id_ed25519
+#Host *github.com*
+# # User %u
+#  IdentityFile %d/.ssh/id_ed25519
 
 #Host *.linkedin.com
 #  LogLevel error
 
+#Host *
+#  ForwardAgent yes
+#  IdentitiesOnly=yes
+
 Host *
   ForwardAgent yes
-#  IdentitiesOnly=yes
+  IdentitiesOnly=yes
+  IgnoreUnknown UseKeychain
+  UseKeychain yes
+  AddKeysToAgent yes
 
 #Host *-gns* nsg7-portalcn0*.linkedin.biz
 #  ForwardAgent yes
@@ -18,18 +25,18 @@ Host *
 #Host abe2*.gts* ash1*.gts* *.internal.linkedin.cn *-cn-*.gts*
 #  ProxyCommand ssh -q -W %h:%p nsg7-portalcn01
 
-Host *.gts*
-#  Proxycommand ssh -q -W %h:%p lca1-gns01
-   IdentityFile %d/.ssh/%u_at_linkedin.com_ssh_key
-     ForwardAgent yes
-     IdentitiesOnly=yes
-     HostkeyAlgorithms +ssh-dss
-     PubkeyAcceptedKeyTypes +ssh-dss
-     IgnoreUnknown UseKeychain
-     UseKeychain yes
-     AddKeysToAgent yes
-     Ciphers aes128-cbc,aes128-ctr
-     KexAlgorithms +diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+#Host *.gts*
+##  Proxycommand ssh -q -W %h:%p lca1-gns01
+#   IdentityFile %d/.ssh/%u_at_linkedin.com_ssh_key
+#     ForwardAgent yes
+#     IdentitiesOnly=yes
+#     HostkeyAlgorithms +ssh-dss
+#     PubkeyAcceptedKeyTypes +ssh-dss
+#     IgnoreUnknown UseKeychain
+#     UseKeychain yes
+#     AddKeysToAgent yes
+#     Ciphers aes128-cbc,aes128-ctr
+#     KexAlgorithms +diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
 
 #Host *
 #   IdentityFile %d/.ssh/%u_at_linkedin.com_ssh_key
@@ -43,23 +50,23 @@ Host *.gts*
 #     Ciphers aes128-cbc,aes128-ctr
 #     KexAlgorithms +diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
 
-Host lca1-gns01
-  Hostname lca1-gns01.linkedin.biz
-
-Host lva1-gns01
-  Hostname lva1-gns01.linkedin.biz
-
-Host ltx1-gnsa01
-  Hostname ltx1-gnsa01.linkedin.biz
-
-Host ltx1-gns01
-  Hostname ltx1-gns01.linkedin.biz
-
-Host idb2-gns01
-  Hostname idb2-gns01.linkedin.biz
-
-Host nsg7-gns01
-  Hostname nsg7-gns01.linkedin.biz
-
-Host nsg7-portalcn01
-  Hostname nsg7-portalcn01.linkedin.biz
+#Host lca1-gns01
+#  Hostname lca1-gns01.linkedin.biz
+#
+#Host lva1-gns01
+#  Hostname lva1-gns01.linkedin.biz
+#
+#Host ltx1-gnsa01
+#  Hostname ltx1-gnsa01.linkedin.biz
+#
+#Host ltx1-gns01
+#  Hostname ltx1-gns01.linkedin.biz
+#
+#Host idb2-gns01
+#  Hostname idb2-gns01.linkedin.biz
+#
+#Host nsg7-gns01
+#  Hostname nsg7-gns01.linkedin.biz
+#
+#Host nsg7-portalcn01
+#  Hostname nsg7-portalcn01.linkedin.biz
