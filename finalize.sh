@@ -266,7 +266,7 @@ else
   if [[ $reply_git_repo == ssh ]]; then
     git clone git@github.com:$reply_git_repo_username/dotfiles.git $HOME/projects/dotfiles
   else
-    git clone https://github.com/$reply_repo_username/dotfiles $HOME/projects/dotfiles
+    git clone https://github.com/$reply_git_repo_username/dotfiles $HOME/projects/dotfiles
   fi
 
   rm -rf $HOME/.dotfiles
