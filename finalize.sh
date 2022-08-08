@@ -148,6 +148,20 @@ for file in $HOME/.dotfiles/homedir/.*; do
   print -n "\tlinked"; ok
 done
 
+# 1Password working directory and Symlink
+if [[ -d $HOME/.1password ]]; then
+  running "1Password working directory already exist"
+  ok
+else
+  running "creating 1Password working directory..."
+  mkdir -p $HOME/.1password
+  print -n "\tcreated"; ok
+  # create the link
+  ln -s $HOME/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock $HOME/.1password/agent.sock
+  print -n "\tlinked"; ok
+fi
+
+
 # Symlink for .gitconfig
 #action "creating gitconfig symlink"
 #if [[ -L $HOME/.gitconfig ]]; then
