@@ -289,4 +289,5 @@ else
 fi
 
 warn "reboot for personalization to take effect and enjoy!"
+warn "remember to run 'gh auth login' to authenticate github!!"
 bot "personalization complete"
