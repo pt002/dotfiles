@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# ssh-agent
+# ssh-agent old
 
 #if [ ! -S ~/.ssh/ssh_auth_sock ]; then
 #eval `ssh-agent`
