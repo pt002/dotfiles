@@ -110,8 +110,7 @@ ok
 bot "ssh config setup"
 action "creating symlinks for ssh config..."
 
-if [[ $reply_work == y ]]; then
-  if [[ -L $HOME/.ssh/config ]]; then
+if [[ -L $HOME/.ssh/config ]]; then
     running "ssh config symlink already exist"
     ok
   else
@@ -119,9 +118,6 @@ if [[ $reply_work == y ]]; then
     rm -rf $HOME/.ssh/config
     ln -s $HOME/projects/dotfiles/configs/ssh_config $HOME/.ssh/config
     print -n "\tlinked"; ok
-  fi
-else
-  ok "skipping for personal systems"
 fi
 
 bot "dotfiles setup"
