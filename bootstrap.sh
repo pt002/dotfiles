@@ -70,6 +70,8 @@ bot "install homebrew"
 brew_check=$(which brew) 2>&1 > /dev/null
 if [[ $? != 0 ]]; then
   action "installing homebrew. press return to continue."
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/pt002/.zprofile
+  eval "$(/opt/homebrew/bin/brew shellenv)"
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" &>> ${log_dir}/${logfile}
   BREW_PREFIX=$(brew --prefix)
 else
