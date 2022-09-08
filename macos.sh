@@ -133,8 +133,8 @@ defaults write com.apple.dock wvous-tr-corner -int 10
 defaults write com.apple.dock wvous-tr-modifier -int 0; ok
 ## # Bottom right screen corner → Lock Screen
 running "bottom right corner → Lock Screen"
-defaults write com.apple.dock wvous-tr-corner -int 13
-defaults write com.apple.dock wvous-tr-modifier -int 0; ok
+defaults write com.apple.dock wvous-br-corner -int 13
+defaults write com.apple.dock wvous-br-modifier -int 0; ok
 
 ##############################################################################
 bot "configure security"
