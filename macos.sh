@@ -122,13 +122,18 @@ defaults write com.apple.dock minimize-to-application -bool true; ok
     # 10: Put display to sleep
     # 11: Launchpad
     # 12: Notification Center
+    # 13: Lock Screen
 ## # Top left screen corner → Start Screen Saver
 running "top left corner → start screen saver"
 defaults write com.apple.dock wvous-tl-corner -int 5
 defaults write com.apple.dock wvous-tl-modifier -int 0; ok
 ## # Top right screen corner → Put Display to Sleep
-running "top left corner → Put Display to Sleep"
+running "top right corner → Put Display to Sleep"
 defaults write com.apple.dock wvous-tr-corner -int 10
+defaults write com.apple.dock wvous-tr-modifier -int 0; ok
+## # Bottom right screen corner → Lock Screen
+running "bottom right corner → Lock Screen"
+defaults write com.apple.dock wvous-tr-corner -int 13
 defaults write com.apple.dock wvous-tr-modifier -int 0; ok
 
 ##############################################################################
