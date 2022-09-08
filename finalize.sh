@@ -76,28 +76,28 @@ else
   done
 fi
 
-if [[ $reply_work == y ]]; then
-  for sshkeys in "${gdrive}"/Keys/Work_Shell/*(.); do
-    ## Check if GDrive is synced, if so create symlinks
-    if [[ -L "$HOME/.ssh/${sshkeys:t}" ]]; then
-      running "ssh key symlink for ${sshkeys:t} already exist"
-      ok
-    else
-      running "creating ssh key symlink for ${sshkeys:t}..."
-      if [[ -e "$HOME/.ssh/id_*" ]]; then
-        mkdir -p $HOME/.ssh_backup/$now
-        mv $HOME/.ssh/${sshkeys:t} $HOME/.ssh_backup/$now/${sshkeys:t}
-        print "\n\tbackup saved in $HOME/.ssh_backup/$now"
-      fi
-      # symlink might still exist
-      if [[ -L "$HOME/.ssh/${sshkeys:t}" ]]; then
-        unlink $HOME/.ssh/${sshkeys:t} > /dev/null 2>&1
-      fi
-      ln -s ${sshkeys} $HOME/.ssh/${sshkeys:t}
-      print -n "\tlinked"; ok
-    fi
-  done
-fi
+# if [[ $reply_work == y ]]; then
+#   for sshkeys in "${gdrive}"/Keys/Work_Shell/*(.); do
+#     ## Check if GDrive is synced, if so create symlinks
+#     if [[ -L "$HOME/.ssh/${sshkeys:t}" ]]; then
+#       running "ssh key symlink for ${sshkeys:t} already exist"
+#       ok
+#     else
+#       running "creating ssh key symlink for ${sshkeys:t}..."
+#       if [[ -e "$HOME/.ssh/id_*" ]]; then
+#         mkdir -p $HOME/.ssh_backup/$now
+#         mv $HOME/.ssh/${sshkeys:t} $HOME/.ssh_backup/$now/${sshkeys:t}
+#         print "\n\tbackup saved in $HOME/.ssh_backup/$now"
+#       fi
+#       # symlink might still exist
+#       if [[ -L "$HOME/.ssh/${sshkeys:t}" ]]; then
+#         unlink $HOME/.ssh/${sshkeys:t} > /dev/null 2>&1
+#       fi
+#       ln -s ${sshkeys} $HOME/.ssh/${sshkeys:t}
+#       print -n "\tlinked"; ok
+#     fi
+#   done
+# fi
 
 chmod 700 $HOME/.ssh && chmod 600 $HOME/.ssh/*
 running "updating authorized_keys..."
