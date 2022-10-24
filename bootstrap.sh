@@ -70,15 +70,15 @@ bot "install homebrew"
 brew_check=$(which brew) 2>&1 > /dev/null
 if [[ $? != 0 ]]; then
   action "installing homebrew. press return to continue."
-  if [ "$(uname -p)" = "arm" ]; then
-    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" &>> ${log_dir}/${logfile}
+#  if [ "$(uname -p)" = "arm" ]; then
+#    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
+#    eval "$(/opt/homebrew/bin/brew shellenv)"
+#    /bin/bash "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" &>> ${log_dir}/${logfile}
+#    BREW_PREFIX=$(brew --prefix)
+#  else
+    /bin/bash "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" &>> ${log_dir}/${logfile}
     BREW_PREFIX=$(brew --prefix)
-  else
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" &>> ${log_dir}/${logfile}
-    BREW_PREFIX=$(brew --prefix)
-  fi
+#  fi
 else
   print "homebrew already installed..."
   BREW_PREFIX=$(brew --prefix)
