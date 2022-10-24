@@ -73,10 +73,10 @@ if [[ $? != 0 ]]; then
 #  if [ "$(uname -p)" = "arm" ]; then
 #    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
 #    eval "$(/opt/homebrew/bin/brew shellenv)"
-#    /bin/bash "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" &>> ${log_dir}/${logfile}
+#    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" &>> ${log_dir}/${logfile}
 #    BREW_PREFIX=$(brew --prefix)
 #  else
-    /bin/bash "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" &>> ${log_dir}/${logfile}
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" &>> ${log_dir}/${logfile}
     BREW_PREFIX=$(brew --prefix)
 #  fi
 else
