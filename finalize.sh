@@ -18,7 +18,7 @@ source ./libs/installers.sh
 #gdrive="$HOME/Google Drive"
 
 # Google Drive
-gdrive="/Volumes/GoogleDrive/My Drive"
+gdrive="Google \Drive/"
 
 hist_files=(
   .bash_history
