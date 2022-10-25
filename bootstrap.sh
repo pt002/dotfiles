@@ -144,10 +144,10 @@ for p_pkgs in ${pips[@]}; do
   pip_install ${p_pkgs}
 done
 
-bot "installing atom packages"
-for a_pkgs in ${atom[@]}; do
-  apm_install ${a_pkgs}
-done
+# bot "installing atom packages"
+# for a_pkgs in ${atom[@]}; do
+#   apm_install ${a_pkgs}
+# done
 
 action "brew cleaning up..."
 brew cleanup &>> ${log_dir}/${logfile}
