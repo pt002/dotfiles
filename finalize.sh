@@ -50,11 +50,11 @@ action "creating symlinks"
 
 setopt EXTENDED_GLOB
 ## Check if GDrive is synced, if so create symlinks
-if [[ ! -d "${gdrive}/Keys/Shell" ]]; then
+if [[ ! -d "${gdrive}"/Keys/Shell ]]; then
   warn "please wait for G Drive to complete syncing."
   exit 1
 else
-  for sshkeys in "${gdrive}/Keys/Shell/*(.)"; do
+  for sshkeys in "${gdrive}"/Keys/Shell/*(.); do
     ## Check if GDrive is synced, if so create symlinks
     if [[ -L "$HOME/.ssh/${sshkeys:t}" ]]; then
       running "ssh key symlink for ${sshkeys:t} already exist"
