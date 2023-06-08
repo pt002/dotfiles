@@ -230,15 +230,6 @@
   # Display anchor directory segments in bold.
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
 
-  typeset -g POWERLEVEL9K_DIR_ETC_BACKGROUND=
-  typeset -g POWERLEVEL9K_DIR_ETC_FOREGROUND=005
-  typeset -g POWERLEVEL9K_DIR_HOME_BACKGROUND=
-  typeset -g POWERLEVEL9K_DIR_HOME_FOREGROUND=004
-  typeset -g POWERLEVEL9K_DIR_DEFAULT_BACKGROUND=
-  typeset -g POWERLEVEL9K_DIR_DEFAULT_FOREGROUND=005
-  typeset -g POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND=
-  typeset -g POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=004
-
   # Don't shorten directories that contain any of these files. They are anchors.
   local anchor_files=(
     .bzr
