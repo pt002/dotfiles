@@ -252,7 +252,7 @@ fi
 # virtualenvwrapper
 # We want to regularly go to our virtual environment directory
 export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/projects/lnkd
+export PROJECT_HOME=$HOME/projects/gh
 # If in a given virtual environment, make a virtual environment directory
 # If one does not already exist
 mkdir -p $WORKON_HOME
