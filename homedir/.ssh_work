@@ -1,12 +1,5 @@
 #!/usr/bin/env zsh
 
-# ssh-agent old
-
-#if [ ! -S ~/.ssh/ssh_auth_sock ]; then
-#eval `ssh-agent`
-#ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
-#fi
-#export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
-#ssh-add -l > /dev/null || ssh-add ~/.ssh/${USERNAME}_at_linkedin.com_ssh_key
+# Use 1Password as SSH agent
 
 export SSH_AUTH_SOCK=~/.1password/agent.sock
