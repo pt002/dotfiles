@@ -46,3 +46,12 @@
   added = yellow
   changed = green
   untracked = cyan
+
+[gpg]
+        format = ssh
+
+[gpg "ssh"]
+        program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
+[commit]
+        gpgsign = true
