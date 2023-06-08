@@ -177,7 +177,7 @@ ok
 
 action "downloading 'oh my zsh' plugins and themes"
 if [[ ! -d ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/themes/powerlevel9k ]]; then
-  git clone https://github.com/bhilburn/powerlevel9k.git ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/themes/powerlevel9k &>> ${log_dir}/${logfile}
+  git clone https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/themes/powerlevel10k &>> ${log_dir}/${logfile}
 else
   print "'powerlevel9k' already cloned"
 fi
