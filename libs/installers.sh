@@ -51,18 +51,3 @@ function pip_install() {
     fi
     ok
 }
-
-function apm_install() {
-    running "apm install $1"
-    if [[ -d $HOME/.atom/packages/$1 ]]; then
-      print "\n\t$1 already installed"
-    else
-      action "installing $1"
-      apm install $1 &>> ${log_dir}/${logfile}
-      if [[ $? != 0 ]]; then
-          error "failed to install $1! aborting..."
-          # exit -1
-      fi
-    fi
-    ok
-}
