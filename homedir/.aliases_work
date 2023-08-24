@@ -5,7 +5,6 @@ alias screen_airconsole="screen /dev/cu.Airconsole-1 9600"
 alias screen_console="screen /dev/cu.usbserial-DN05LJKP 9600"
 
 # GAM
-alias gam="/Users/pt002/projects/gamadv-xtd3/gam"
 alias gamprod="gam select prod"
 alias gamdev="gam select dev"
 alias gamsemmle="gam select semmle"
