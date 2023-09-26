@@ -263,7 +263,7 @@ if [ -f $HOME/.pyenv/versions/3.8.5/bin/virtualenvwrapper.sh ]; then
 fi
 
 # Powerlevel10k
-source $(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme
+source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
