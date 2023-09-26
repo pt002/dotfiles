@@ -2,7 +2,7 @@
   name = GIT_NAME
   email = GIT_EMAIL
   username = GIT_USER
-          signingkey = # add public key here
+          signingkey = GIT_SSH_PUBKEY
 
 [core]
 

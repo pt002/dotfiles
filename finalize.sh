@@ -201,11 +201,21 @@ if [[ $? = 0 ]]; then
       exit 1
     fi
   read -r "git_user?What is your git username? "
+    if [[ ! $git_user ]];then
+      error "you must provide an username to configure .gitconfig"
+      exit 1
+    fi
+  read -r "git_ssh_pubkey?What is your git ssh public key? "
+    if [[ ! $git_ssh_pubkey ]];then
+      error "you must provide an ssh public key to configure .gitconfig"
+      exit 1
+    fi
 
   running "replacing items in .gitconfig with your info ($COL_YELLOW$name, $email, $git_user$COL_RESET)"
   gsed -i 's/GIT_NAME/'$name'/' $HOME/.gitconfig
   gsed -i 's/GIT_EMAIL/'$email'/' $HOME/.gitconfig
   gsed -i 's/GIT_USER/'$git_user'/' $HOME/.gitconfig
+  gsed -i 's/GIT_SSH_PUBKEY/'$git_ssh_pubkey'/' $HOME/.gitconfig
 fi
 
 bot "configuring macos"
