@@ -91,3 +91,6 @@ export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
 export PATH="/usr/local/bin:$PATH"
+
+# GAM
+alias gam="~/projects/gamadv-xtd3/gam"
