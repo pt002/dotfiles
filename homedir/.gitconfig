@@ -1,8 +1,8 @@
 [user]
-  name = GIT_NAME
-  email = GIT_EMAIL
-  username = GIT_USER
-          signingkey = # add public key here
+  name = Philip Tongsak
+  email = pt002@github.com
+  username = pt002
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEtZfT6aPrlr/8k3nXvS0Heg0GEoHJRpmojBvlDNji4O
 
 [core]
 
