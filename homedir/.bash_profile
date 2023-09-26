@@ -93,4 +93,4 @@ source "$BASH_IT"/bash_it.sh
 export PATH="/usr/local/bin:$PATH"
 
 # GAM
-alias gam="~/projects/gamadv-xtd3/gam"
+alias gam="$HOME/projects/gamadv-xtd3/gam"
