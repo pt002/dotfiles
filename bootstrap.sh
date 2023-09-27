@@ -41,15 +41,15 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Accept XCode license
-bot "xcode settings"
-if [[ ! -e /Applications/Xcode.app ]]; then
-  error "please install xcode..."
-  # exit 1
-else
-  running "accepting xcode license..."
-  sudo xcodebuild -license accept &>> ${log_dir}/${logfile}
-  ok
-fi
+# bot "xcode settings"
+# if [[ ! -e /Applications/Xcode.app ]]; then
+#   error "please install xcode..."
+#   # exit 1
+# else
+#   running "accepting xcode license..."
+#   sudo xcodebuild -license accept &>> ${log_dir}/${logfile}
+#   ok
+# fi
 
 # Install XCode Command Line Tools
 if ! xcode-select --print-path &> /dev/null; then
