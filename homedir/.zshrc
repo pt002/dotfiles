@@ -269,4 +269,5 @@ source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh
 
 # GAM
-alias gam="$HOME/projects/gamadv-xtd3/gam"
+#alias gam="$HOME/projects/gamadv-xtd3/gam"
+alias gam="$HOME/projects/gam/gam"
