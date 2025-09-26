@@ -126,7 +126,7 @@ done
 
 bot "installing brew cask apps"
 for b_casks in ${casks[@]}; do
-  cask_install ${b_casks}
+  cask_install ${b_casks} --force
 done
 
 bot "installing speedtest"
