@@ -1,23 +1,29 @@
 #!/usr/bin/env zsh
 
 #
-# macOS script for setting up a new OSX machine
+# macOS preferences configuration script
 #
 # This should be idempotent so it can be run multiple times.
 #
 # References:
-#
 # - https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 # - https://github.com/joeyhoer/starter
 # - https://github.com/dstroot/.osx
 # - https://github.com/atomantic/dotfiles/blob/master/install.sh
 
+# Exit on any error
+set -e
+
 now=$(date +"%Y%m%d_%H.%M.%S")
 log_dir="$HOME/logs"
-logfile="macos_$now.log"
+logfile="macos-preferences_$now.log"
 
 source ./libs/echos.sh
 source ./libs/installers.sh
+
+# Check if running on macOS and in correct directory
+check_os
+check_directory
 
 ######################################## End of settings ######################
 
@@ -27,23 +33,13 @@ running "closing any system preferences to prevent issues with automated changes
 osascript -e 'tell application "System Preferences" to quit'
 ok
 
-# Ask for the administrator password upfront
-#bot "please enter your password for front loading..."
-#sudo -v
-
-# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
-#while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+# Note: Administrator password should be handled by the calling script
 
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
 
-#sudo scutil --set ComputerName ${sys_name}
-#sudo scutil --set HostName ${sys_name}
-#sudo scutil --set LocalHostName ${sys_name}
-#sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string ${sys_name}
-
-## # Set computer label & name (as done via System Preferences → Sharing)
+# Set computer label & name (as done via System Preferences → Sharing)
 read "mac_os_label?What is this machine's label (Example: Phil's MacBook Pro ) ? "
 if [[ -z "$mac_os_label" ]]; then
   warn "ERROR: Invalid MacOS label."

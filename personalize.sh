@@ -1,24 +1,56 @@
 #!/usr/bin/env zsh
 
 #
-# Script to finalize and personalize macOS setup
+# Script to personalize macOS setup
 #
 # This should be ran after bootstrapping.
 #
-#
+
+# Exit on any error
+set -e
 
 now=$(date +"%Y%m%d_%H.%M.%S")
 log_dir="$HOME/logs"
-logfile="finalize_$now.log"
+logfile="personalize_$now.log"
 
 source ./libs/echos.sh
 source ./libs/installers.sh
 
-# Google Backup and Sync / Google Drive
-#gdrive="$HOME/Google Drive"
+# Check if running on macOS and in correct directory
+check_os
+check_directory
 
-# Google Drive
-gdrive="$HOME/Google Drive/My Drive"
+# Detect Google Drive directory
+# Single account: "$HOME/Google Drive/My Drive"
+# Multiple accounts: "$HOME/handle@domain.com - Google Drive/My Drive"
+gdrive_dirs=("$HOME"/*" - Google Drive/My Drive"(N))
+if [[ ${#gdrive_dirs[@]} -eq 0 ]]; then
+  # No multi-account setup found, check for single account
+  if [[ -d "$HOME/Google Drive/My Drive" ]]; then
+    gdrive="$HOME/Google Drive/My Drive"
+  else
+    gdrive=""
+  fi
+elif [[ ${#gdrive_dirs[@]} -eq 1 ]]; then
+  # Exactly one multi-account directory found
+  gdrive="${gdrive_dirs[1]}"
+else
+  # Multiple Google Drive accounts found
+  bot "Multiple Google Drive accounts detected"
+  print "Please select which account contains your keys:\n"
+  local i=1
+  for gd in "${gdrive_dirs[@]}"; do
+    print "  ${i}) ${gd:t:r}"
+    ((i++))
+  done
+  read -r "gdrive_choice?Enter number (1-${#gdrive_dirs[@]}): "
+  if [[ $gdrive_choice -ge 1 && $gdrive_choice -le ${#gdrive_dirs[@]} ]]; then
+    gdrive="${gdrive_dirs[$gdrive_choice]}"
+  else
+    error "Invalid selection"
+    exit 1
+  fi
+fi
 
 hist_files=(
   .bash_history
@@ -50,8 +82,11 @@ action "creating symlinks"
 
 setopt EXTENDED_GLOB
 ## Check if GDrive is synced, if so create symlinks
-if [[ ! -d "${gdrive}"/Keys/Shell ]]; then
-  warn "please wait for G Drive to complete syncing."
+if [[ -z "${gdrive}" ]]; then
+  warn "Google Drive directory not found. Please ensure Google Drive is installed and synced."
+  exit 1
+elif [[ ! -d "${gdrive}"/Keys/Shell ]]; then
+  warn "please wait for Google Drive to complete syncing."
   exit 1
 else
   for sshkeys in "${gdrive}"/Keys/Shell/*(.); do
@@ -76,28 +111,7 @@ else
   done
 fi
 
-# if [[ $reply_work == y ]]; then
-#   for sshkeys in "${gdrive}"/Keys/Work_Shell/*(.); do
-#     ## Check if GDrive is synced, if so create symlinks
-#     if [[ -L "$HOME/.ssh/${sshkeys:t}" ]]; then
-#       running "ssh key symlink for ${sshkeys:t} already exist"
-#       ok
-#     else
-#       running "creating ssh key symlink for ${sshkeys:t}..."
-#       if [[ -e "$HOME/.ssh/id_*" ]]; then
-#         mkdir -p $HOME/.ssh_backup/$now
-#         mv $HOME/.ssh/${sshkeys:t} $HOME/.ssh_backup/$now/${sshkeys:t}
-#         print "\n\tbackup saved in $HOME/.ssh_backup/$now"
-#       fi
-#       # symlink might still exist
-#       if [[ -L "$HOME/.ssh/${sshkeys:t}" ]]; then
-#         unlink $HOME/.ssh/${sshkeys:t} > /dev/null 2>&1
-#       fi
-#       ln -s ${sshkeys} $HOME/.ssh/${sshkeys:t}
-#       print -n "\tlinked"; ok
-#     fi
-#   done
-# fi
+
 
 chmod 700 $HOME/.ssh && chmod 600 $HOME/.ssh/*
 running "updating authorized_keys..."
@@ -124,7 +138,6 @@ bot "dotfiles setup"
 action "creating symlinks for project dotfiles..."
 
 setopt EXTENDED_GLOB
-#for file in $HOME/.dotfiles/homedir/.^gitconfig_work*(.N); do
 for file in $HOME/.dotfiles/homedir/.*; do
   if [[ ${file:t} == "." || ${file:t} == ".." ]]; then
     continue
@@ -223,7 +236,7 @@ running "macos system configurations"
 read -q "reply_mac?Do you want to run macos settings? [y|N] "
 print "\n"
   if [[ $reply_mac == y ]]; then
-    source ./macos.sh
+    source ./macos-preferences.sh
   else
     ok "skipping"
   fi
