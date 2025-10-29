@@ -20,8 +20,37 @@ source ./libs/installers.sh
 check_os
 check_directory
 
-# Google Drive
-gdrive="$HOME/Google Drive/My Drive"
+# Detect Google Drive directory
+# Single account: "$HOME/Google Drive/My Drive"
+# Multiple accounts: "$HOME/handle@domain.com - Google Drive/My Drive"
+gdrive_dirs=("$HOME"/*" - Google Drive/My Drive"(N))
+if [[ ${#gdrive_dirs[@]} -eq 0 ]]; then
+  # No multi-account setup found, check for single account
+  if [[ -d "$HOME/Google Drive/My Drive" ]]; then
+    gdrive="$HOME/Google Drive/My Drive"
+  else
+    gdrive=""
+  fi
+elif [[ ${#gdrive_dirs[@]} -eq 1 ]]; then
+  # Exactly one multi-account directory found
+  gdrive="${gdrive_dirs[1]}"
+else
+  # Multiple Google Drive accounts found
+  bot "Multiple Google Drive accounts detected"
+  print "Please select which account contains your keys:\n"
+  local i=1
+  for gd in "${gdrive_dirs[@]}"; do
+    print "  ${i}) ${gd:t:r}"
+    ((i++))
+  done
+  read -r "gdrive_choice?Enter number (1-${#gdrive_dirs[@]}): "
+  if [[ $gdrive_choice -ge 1 && $gdrive_choice -le ${#gdrive_dirs[@]} ]]; then
+    gdrive="${gdrive_dirs[$gdrive_choice]}"
+  else
+    error "Invalid selection"
+    exit 1
+  fi
+fi
 
 hist_files=(
   .bash_history
@@ -53,7 +82,10 @@ action "creating symlinks"
 
 setopt EXTENDED_GLOB
 ## Check if GDrive is synced, if so create symlinks
-if [[ ! -d "${gdrive}"/Keys/Shell ]]; then
+if [[ -z "${gdrive}" ]]; then
+  warn "Google Drive directory not found. Please ensure Google Drive is installed and synced."
+  exit 1
+elif [[ ! -d "${gdrive}"/Keys/Shell ]]; then
   warn "please wait for G Drive to complete syncing."
   exit 1
 else
