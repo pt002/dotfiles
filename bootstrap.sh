@@ -45,13 +45,6 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until `.macos` has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# Accept XCode license if Xcode is installed
-if [[ -e /Applications/Xcode.app ]]; then
-  running "accepting xcode license..."
-  sudo xcodebuild -license accept &>> ${log_dir}/${logfile}
-  ok
-fi
-
 # Check for Homebrew, install if we don't have it
 bot "install homebrew"
 if ! command -v brew &> /dev/null; then
