@@ -15,7 +15,7 @@ COL_MAGENTA="${ESC_SEQ}35;01m"
 COL_CYAN="${ESC_SEQ}36;01m"
 
 # Print a success message in green
-# Usage: ok [message]
+# Usage: ok <message>
 function ok() {
     print "${COL_GREEN}[ok]${COL_RESET} ${1}"
 }
