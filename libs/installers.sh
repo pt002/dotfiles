@@ -5,15 +5,14 @@
 
 function brew_install() {
     local package=$1
-    shift
-    local extra_args="$@"
+    local extra_args=("${@:2}")
     
-    running "brew install $package $extra_args"
+    running "brew install $package ${extra_args[*]}"
     if brew ls $package > /dev/null 2>&1; then
       print "\n\t$package already installed"
     else
-      action "installing $package $extra_args"
-      brew install $package $extra_args &>> ${log_dir}/${logfile}
+      action "installing $package ${extra_args[*]}"
+      brew install $package "${extra_args[@]}" &>> ${log_dir}/${logfile}
       if [[ $? != 0 ]]; then
         error "failed to install $package! aborting..."
       fi
@@ -23,15 +22,14 @@ function brew_install() {
 
 function cask_install() {
     local package=$1
-    shift
-    local extra_args="$@"
+    local extra_args=("${@:2}")
     
-    running "brew install --cask $package $extra_args"
+    running "brew install --cask $package ${extra_args[*]}"
     if brew list --cask $package > /dev/null 2>&1; then
       print "\n\t$package already installed"
     else
-      action "installing $package $extra_args"
-      brew install --cask $package $extra_args &>> ${log_dir}/${logfile}
+      action "installing $package ${extra_args[*]}"
+      brew install --cask $package "${extra_args[@]}" &>> ${log_dir}/${logfile}
       if [[ $? != 0 ]]; then
         error "failed to install $package! aborting..."
       fi
@@ -41,15 +39,14 @@ function cask_install() {
 
 function pip_install() {
     local package=$1
-    shift
-    local extra_args="$@"
+    local extra_args=("${@:2}")
     
-    running "pip install $package $extra_args"
+    running "pip install $package ${extra_args[*]}"
     if pip show $package > /dev/null 2>&1; then
       print "\n\t$package already installed"
     else
-      action "installing $package $extra_args"
-      pip install $package $extra_args &>> ${log_dir}/${logfile}
+      action "installing $package ${extra_args[*]}"
+      pip install $package "${extra_args[@]}" &>> ${log_dir}/${logfile}
       if [[ $? != 0 ]]; then
         error "failed to install $package! aborting..."
       fi
