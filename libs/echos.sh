@@ -38,3 +38,25 @@ function warn() {
 function error() {
     print "${COL_RED}[error]${COL_RESET} "$1
 }
+
+function print_result() {
+    if [[ $1 -eq 0 ]]; then
+        ok "$2"
+    else
+        error "$2"
+    fi
+}
+
+function check_os() {
+    if [[ "$OSTYPE" != "darwin"* ]]; then
+        error "This script is designed for macOS only."
+        exit 1
+    fi
+}
+
+function check_directory() {
+    if [[ ! -f "./libs/echos.sh" ]]; then
+        error "Please run this script from the dotfiles directory."
+        exit 1
+    fi
+}

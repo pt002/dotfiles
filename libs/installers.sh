@@ -5,33 +5,33 @@
 
 function brew_install() {
     running "brew install $1"
-    if brew ls $1 > /dev/null 2>&1; then
+    if brew list $1 > /dev/null 2>&1; then
       print "\n\t$1 already installed"
     else
-    #brew list $1 > /dev/null 2>&1 | true
-    #if [[ ${pipestatus[1]} != 0 ]]; then
       action "installing $1"
-      brew install $1 &>> ${log_dir}/${logfile}
-      if [[ $? != 0 ]]; then
+      if ! brew install $1 &>> ${log_dir}/${logfile}; then
         error "failed to install $1! aborting..."
-        # exit -1
+        return 1
       fi
     fi
     ok
 }
 
 function cask_install() {
-    running "brew install $1"
-    if brew cask ls $1 > /dev/null 2>&1; then
-      print "\n\t$1 already installed"
+    local app_name=$1
+    local force_flag=""
+    if [[ "$2" == "--force" ]]; then
+        force_flag="--force"
+    fi
+    
+    running "brew install --cask $app_name"
+    if brew list --cask $app_name > /dev/null 2>&1 && [[ -z "$force_flag" ]]; then
+      print "\n\t$app_name already installed"
     else
-    #brew cask list $1 > /dev/null 2>&1 | true
-    #if [[ ${pipestatus[1]} != 0 ]]; then
-      action "installing $1"
-      brew install $1 &>> ${log_dir}/${logfile}
-      if [[ $? != 0 ]]; then
-        error "failed to install $1! aborting..."
-        # exit -1
+      action "installing $app_name"
+      if ! brew install --cask $app_name $force_flag &>> ${log_dir}/${logfile}; then
+        error "failed to install $app_name! aborting..."
+        return 1
       fi
     fi
     ok
@@ -43,10 +43,9 @@ function pip_install() {
       print "\n\t$1 already installed"
     else
       action "installing $1"
-      pip install $1 &>> ${log_dir}/${logfile}
-      if [[ $? != 0 ]]; then
+      if ! pip install $1 &>> ${log_dir}/${logfile}; then
           error "failed to install $1! aborting..."
-          # exit -1
+          return 1
       fi
     fi
     ok

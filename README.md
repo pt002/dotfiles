@@ -1,1 +1,42 @@
 # dotfiles
+
+macOS setup and configuration scripts for a new machine.
+
+## Usage
+
+1. **Bootstrap**: Install essential tools and applications
+
+   ```bash
+   ./bootstrap.sh
+   ```
+
+2. **macOS Configuration**: Configure system settings and preferences
+
+   ```bash
+   ./macos.sh
+   ```
+
+3. **Finalization**: Set up personal configurations and dotfiles
+
+   ```bash
+   ./finalize.sh
+   ```
+
+## Scripts
+
+- `bootstrap.sh` - Installs Homebrew, essential command-line tools, applications, and Oh My Zsh
+- `macos.sh` - Configures macOS system preferences and settings
+- `finalize.sh` - Sets up SSH keys, dotfiles symlinks, and personal configurations
+
+## Configuration
+
+- `configs/apps.cfg` - List of applications to install via Homebrew
+- `configs/` - Various configuration files (Terminal themes, SSH config, etc.)
+- `homedir/` - Dotfiles to be symlinked to home directory
+- `libs/` - Helper functions for logging and installation
+
+## Notes
+
+- Scripts are designed to be idempotent (safe to run multiple times)
+- If installing full Xcode, do so before running bootstrap script
+- Logs are saved to `~/logs/` for troubleshooting
