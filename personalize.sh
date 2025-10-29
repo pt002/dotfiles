@@ -86,7 +86,7 @@ if [[ -z "${gdrive}" ]]; then
   warn "Google Drive directory not found. Please ensure Google Drive is installed and synced."
   exit 1
 elif [[ ! -d "${gdrive}"/Keys/Shell ]]; then
-  warn "please wait for G Drive to complete syncing."
+  warn "please wait for Google Drive to complete syncing."
   exit 1
 else
   for sshkeys in "${gdrive}"/Keys/Shell/*(.); do
