@@ -22,11 +22,11 @@ function brew_install() {
 
 function cask_install() {
     running "brew install --cask $1"
-    if brew list --cask $1 > /dev/null 2>&1; then
+    if brew list --cask "$1" > /dev/null 2>&1; then
       print "\n\t$1 already installed"
     else
       action "installing $1"
-      brew install --cask "$@" &>> ${log_dir}/${logfile}
+      brew install --cask "$1" "${@:2}" &>> ${log_dir}/${logfile}
       if [[ $? != 0 ]]; then
         error "failed to install $1! aborting..."
         # exit -1
