@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 #
-# Script to finalize and personalize macOS setup
+# Script to personalize macOS setup
 #
 # This should be ran after bootstrapping.
 #
@@ -11,7 +11,7 @@ set -e
 
 now=$(date +"%Y%m%d_%H.%M.%S")
 log_dir="$HOME/logs"
-logfile="finalize_$now.log"
+logfile="personalize_$now.log"
 
 source ./libs/echos.sh
 source ./libs/installers.sh
@@ -204,7 +204,7 @@ running "macos system configurations"
 read -q "reply_mac?Do you want to run macos settings? [y|N] "
 print "\n"
   if [[ $reply_mac == y ]]; then
-    source ./macos.sh
+    source ./macos-preferences.sh
   else
     ok "skipping"
   fi

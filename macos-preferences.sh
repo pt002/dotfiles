@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 #
-# macOS script for setting up a new macOS machine
+# macOS preferences configuration script
 #
 # This should be idempotent so it can be run multiple times.
 #
@@ -16,7 +16,7 @@ set -e
 
 now=$(date +"%Y%m%d_%H.%M.%S")
 log_dir="$HOME/logs"
-logfile="macos_$now.log"
+logfile="macos-preferences_$now.log"
 
 source ./libs/echos.sh
 source ./libs/installers.sh

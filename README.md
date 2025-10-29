@@ -10,23 +10,23 @@ macOS setup and configuration scripts for a new machine.
    ./bootstrap.sh
    ```
 
-2. **Finalization**: Set up personal configurations and dotfiles
+2. **Personalization**: Set up personal configurations and dotfiles
 
    ```bash
-   ./finalize.sh
+   ./personalize.sh
    ```
 
-3. **macOS Configuration**: Configure system settings and preferences
+3. **macOS Preferences**: Configure system settings and preferences
 
    ```bash
-   ./macos.sh
+   ./macos-preferences.sh
    ```
 
 ## Scripts
 
 - `bootstrap.sh` - Installs Homebrew, essential command-line tools, applications, and Oh My Zsh
-- `finalize.sh` - Sets up SSH keys, dotfiles symlinks, and personal configurations
-- `macos.sh` - Configures macOS system preferences and settings
+- `personalize.sh` - Sets up SSH keys, dotfiles symlinks, and personal configurations
+- `macos-preferences.sh` - Configures macOS system preferences and settings
 
 ## Configuration
 
