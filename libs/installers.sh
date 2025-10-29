@@ -54,17 +54,15 @@ function cask_install() {
         print "\n\t${app_name} already installed"
     else
         action "installing ${app_name}"
-        # Only pass force_flag if it's set to avoid passing empty argument
+        # Build command array to avoid passing empty arguments
+        local -a install_cmd=(brew install --cask "${app_name}")
         if [[ -n "${force_flag}" ]]; then
-            if ! brew install --cask "${app_name}" "${force_flag}" &>> "${log_dir}/${logfile}"; then
-                error "failed to install ${app_name}! aborting..."
-                return 1
-            fi
-        else
-            if ! brew install --cask "${app_name}" &>> "${log_dir}/${logfile}"; then
-                error "failed to install ${app_name}! aborting..."
-                return 1
-            fi
+            install_cmd+=("${force_flag}")
+        fi
+        
+        if ! "${install_cmd[@]}" &>> "${log_dir}/${logfile}"; then
+            error "failed to install ${app_name}! aborting..."
+            return 1
         fi
     fi
     ok
