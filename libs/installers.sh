@@ -4,49 +4,54 @@
 
 
 function brew_install() {
-    running "brew install $1"
-    if brew ls $1 > /dev/null 2>&1; then
-      print "\n\t$1 already installed"
+    local package=$1
+    shift
+    local extra_args="$@"
+    
+    running "brew install $package $extra_args"
+    if brew ls $package > /dev/null 2>&1; then
+      print "\n\t$package already installed"
     else
-    #brew list $1 > /dev/null 2>&1 | true
-    #if [[ ${pipestatus[1]} != 0 ]]; then
-      action "installing $1"
-      brew install $1 &>> ${log_dir}/${logfile}
+      action "installing $package $extra_args"
+      brew install $package $extra_args &>> ${log_dir}/${logfile}
       if [[ $? != 0 ]]; then
-        error "failed to install $1! aborting..."
-        # exit -1
+        error "failed to install $package! aborting..."
       fi
     fi
     ok
 }
 
 function cask_install() {
-    running "brew install $1"
-    if brew cask ls $1 > /dev/null 2>&1; then
-      print "\n\t$1 already installed"
+    local package=$1
+    shift
+    local extra_args="$@"
+    
+    running "brew install --cask $package $extra_args"
+    if brew list --cask $package > /dev/null 2>&1; then
+      print "\n\t$package already installed"
     else
-    #brew cask list $1 > /dev/null 2>&1 | true
-    #if [[ ${pipestatus[1]} != 0 ]]; then
-      action "installing $1"
-      brew install $1 &>> ${log_dir}/${logfile}
+      action "installing $package $extra_args"
+      brew install --cask $package $extra_args &>> ${log_dir}/${logfile}
       if [[ $? != 0 ]]; then
-        error "failed to install $1! aborting..."
-        # exit -1
+        error "failed to install $package! aborting..."
       fi
     fi
     ok
 }
 
 function pip_install() {
-    running "pip install $1"
-    if pip show $1 > /dev/null 2>&1; then
-      print "\n\t$1 already installed"
+    local package=$1
+    shift
+    local extra_args="$@"
+    
+    running "pip install $package $extra_args"
+    if pip show $package > /dev/null 2>&1; then
+      print "\n\t$package already installed"
     else
-      action "installing $1"
-      pip install $1 &>> ${log_dir}/${logfile}
+      action "installing $package $extra_args"
+      pip install $package $extra_args &>> ${log_dir}/${logfile}
       if [[ $? != 0 ]]; then
-          error "failed to install $1! aborting..."
-          # exit -1
+        error "failed to install $package! aborting..."
       fi
     fi
     ok
