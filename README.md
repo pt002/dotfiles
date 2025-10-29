@@ -38,6 +38,6 @@ macOS setup and configuration scripts for a new machine.
 ## Notes
 
 - Scripts are designed to be idempotent (safe to run multiple times)
-- Xcode Command Line Tools must be installed before cloning this repository (`xcode-select --install`)
-- If installing full Xcode, do so before running bootstrap script
+- **Prerequisites for a newly provisioned macOS**: Either Xcode Command Line Tools (`xcode-select --install`) or full Xcode must be installed before you can use git to clone this repository
+- If installing full Xcode from the App Store, accept the license agreement before running bootstrap script
 - Logs are saved to `~/logs/` for troubleshooting
