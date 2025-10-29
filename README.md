@@ -38,5 +38,6 @@ macOS setup and configuration scripts for a new machine.
 ## Notes
 
 - Scripts are designed to be idempotent (safe to run multiple times)
+- Xcode Command Line Tools must be installed before running bootstrap script (`xcode-select --install`)
 - If installing full Xcode, do so before running bootstrap script
 - Logs are saved to `~/logs/` for troubleshooting

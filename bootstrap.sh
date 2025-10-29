@@ -52,20 +52,6 @@ if [[ -e /Applications/Xcode.app ]]; then
   ok
 fi
 
-# Install XCode Command Line Tools
-if ! xcode-select --print-path &> /dev/null; then
-
-    # Prompt user to install the XCode Command Line Tools
-    xcode-select --install &> /dev/null
-
-    # Wait until the XCode Command Line Tools are installed
-    until xcode-select --print-path &> /dev/null; do
-        sleep 5
-    done
-
-    ok "XCode Command Line Tools Installed"
-fi
-
 # Check for Homebrew, install if we don't have it
 bot "install homebrew"
 if ! command -v brew &> /dev/null; then
@@ -123,13 +109,13 @@ done
 
 bot "installing brew cask apps"
 for b_casks in ${casks[@]}; do
-  cask_install ${b_casks} --force
+  cask_install ${b_casks} --reinstall
 done
 
 bot "installing speedtest"
 brew tap teamookla/speedtest
 for b_speed in ${speed[@]}; do
-  cask_install ${b_speed} --force
+  cask_install ${b_speed} --reinstall
 done
 
 bot "installing brew fonts"
