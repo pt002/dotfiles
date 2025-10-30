@@ -12,19 +12,23 @@
     "Blue Component" : 0.64197766780853271,
     "Red Component" : 0.48961970210075378
   },
-  "Transparency" : 0.063959390862944179,
-  "Normal Font" : "HackNerdFontComplete-Regular 12",
+  "Ansi 1 Color" : {
+    "Green Component" : 0.29435792565345764,
+    "Blue Component" : 0.34168940782546997,
+    "Red Component" : 0.68855589628219604
+  },
+  "Normal Font" : "HackNF-Regular 11",
   "Bold Color" : {
     "Green Component" : 0.7223970890045166,
     "Blue Component" : 0.76466917991638184,
     "Red Component" : 0.70114260911941528
   },
-  "Ansi 2 Color" : {
-    "Green Component" : 0.70098340511322021,
-    "Blue Component" : 0.47588583827018738,
-    "Red Component" : 0.53060799837112427
+  "Horizontal Spacing" : 1,
+  "Ansi 3 Color" : {
+    "Green Component" : 0.75577861070632935,
+    "Blue Component" : 0.47280269861221313,
+    "Red Component" : 0.89902031421661377
   },
-  "Custom Directory" : "No",
   "Right Option Key Sends" : 0,
   "Rows" : 25,
   "Default Bookmark" : "No",
@@ -358,28 +362,20 @@
     "Blue Component" : 0.76466917991638184,
     "Red Component" : 0.70114260911941528
   },
-  "Ansi 0 Color" : {
-    "Green Component" : 0,
-    "Blue Component" : 0,
-    "Red Component" : 0
+  "Transparency" : 0.063959390862944179,
+  "Guid" : "A07737CD-7229-4D0B-87B5-33A306BB1D2B",
+  "Ansi 2 Color" : {
+    "Green Component" : 0.70098340511322021,
+    "Blue Component" : 0.47588583827018738,
+    "Red Component" : 0.53060799837112427
   },
-  "Ansi 1 Color" : {
-    "Green Component" : 0.29435792565345764,
-    "Blue Component" : 0.34168940782546997,
-    "Red Component" : 0.68855589628219604
-  },
-  "Horizontal Spacing" : 1,
+  "Custom Directory" : "No",
   "Link Color" : {
     "Red Component" : 0,
     "Color Space" : "sRGB",
     "Blue Component" : 0.73423302173614502,
     "Alpha Component" : 1,
     "Green Component" : 0.35916060209274292
-  },
-  "Ansi 3 Color" : {
-    "Green Component" : 0.75577861070632935,
-    "Blue Component" : 0.47280269861221313,
-    "Red Component" : 0.89902031421661377
   },
   "Ansi 5 Color" : {
     "Green Component" : 0.47595584392547607,
@@ -407,5 +403,9 @@
     "Blue Component" : 0.64197766780853271,
     "Red Component" : 0.48961970210075378
   },
-  "Guid" : "A07737CD-7229-4D0B-87B5-33A306BB1D2B"
+  "Ansi 0 Color" : {
+    "Green Component" : 0,
+    "Blue Component" : 0,
+    "Red Component" : 0
+  }
 }
