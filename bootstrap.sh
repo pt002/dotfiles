@@ -96,19 +96,72 @@ brew upgrade &>> ${log_dir}/${logfile}
 ok "brews upgraded"
 
 bot "installing brew formulae"
+# Check if any formula is already installed to determine if this is a subsequent run
+reinstall_formulas=false
 for b_form in ${brews[@]}; do
-  brew_install ${b_form}
+  if brew list "${b_form}" > /dev/null 2>&1; then
+    # At least one formula is installed - this is a subsequent run
+    read -q "reply_reinstall_formulas?One or more formulae are already installed. Reinstall all formulae? [y|N] "
+    print "\n"
+    if [[ $reply_reinstall_formulas == y ]]; then
+      reinstall_formulas=true
+    fi
+    break
+  fi
+done
+
+for b_form in ${brews[@]}; do
+  if [[ $reinstall_formulas == true ]]; then
+    brew_install ${b_form} --reinstall
+  else
+    brew_install ${b_form}
+  fi
 done
 
 bot "installing brew cask apps"
+# Check if any cask is already installed to determine if this is a subsequent run
+reinstall_casks=false
+for b_cask in ${casks[@]}; do
+  if brew list --cask "${b_cask}" > /dev/null 2>&1; then
+    # At least one cask is installed - this is a subsequent run
+    read -q "reply_reinstall_casks?One or more cask apps are already installed. Reinstall all cask apps? [y|N] "
+    print "\n"
+    if [[ $reply_reinstall_casks == y ]]; then
+      reinstall_casks=true
+    fi
+    break
+  fi
+done
+
 for b_casks in ${casks[@]}; do
-  cask_install ${b_casks} --reinstall
+  if [[ $reinstall_casks == true ]]; then
+    cask_install ${b_casks} --reinstall
+  else
+    cask_install ${b_casks}
+  fi
 done
 
 bot "installing speedtest"
 brew tap teamookla/speedtest
+# Check if speedtest is already installed
+reinstall_speedtest=false
 for b_speed in ${speed[@]}; do
-  cask_install ${b_speed} --reinstall
+  if brew list --cask "${b_speed}" > /dev/null 2>&1; then
+    read -q "reply_reinstall_speed?Speedtest is already installed. Reinstall? [y|N] "
+    print "\n"
+    if [[ $reply_reinstall_speed == y ]]; then
+      reinstall_speedtest=true
+    fi
+    break
+  fi
+done
+
+for b_speed in ${speed[@]}; do
+  if [[ $reinstall_speedtest == true ]]; then
+    cask_install ${b_speed} --reinstall
+  else
+    cask_install ${b_speed}
+  fi
 done
 
 bot "installing python packages"
