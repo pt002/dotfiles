@@ -1,6 +1,6 @@
 # dotfiles
 
-macOS setup and configuration scripts for a new machine.
+These are my personal macOS setup and configuration scripts for a new machine.
 
 ## Usage
 
