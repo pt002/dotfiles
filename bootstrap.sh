@@ -156,6 +156,7 @@ for b_speed in ${speed[@]}; do
   fi
 done
 
+brew tap teamookla/speedtest
 for b_speed in ${speed[@]}; do
   if [[ $reinstall_speedtest == true ]]; then
     cask_install ${b_speed} --reinstall
