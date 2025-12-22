@@ -9,25 +9,13 @@ gnu_utils=(
 )
 
 # Homebrew
-if [[ -d /opt/homebrew/bin ]]; then
-      export PATH="/opt/homebrew/bin:$PATH"
-      export PATH="/opt/homebrew/sbin:$PATH"
-    else
-      export PATH="/usr/local/sbin:$PATH"
-fi
+export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/sbin:$PATH"
 
-if [[ -d /opt/homebrew/bin ]]; then
-  for gnu_path in ${gnu_utils[@]}; do
-    export PATH="/opt/homebrew/opt/${gnu_path}/libexec/gnubin:$PATH"
-  done
-else
-  for gnu_path in ${gnu_utils[@]}; do
-  export PATH="/usr/local/opt/${gnu_path}/libexec/gnubin:$PATH"
-  done
-fi
+# GNU utils
+for gnu_path in ${gnu_utils[@]}; do
+  export PATH="/opt/homebrew/opt/${gnu_path}/libexec/gnubin:$PATH"
+done
 
-#for gnu_path in ${gnu_utils[@]}; do
-#  export PATH="/usr/local/opt/${gnu_path}/libexec/gnubin:$PATH"
-#done
-
+# Zsh completions
 fpath=(/usr/local/share/zsh-completions $fpath)
