@@ -12,7 +12,7 @@
 #
 
 # Exit on any error
-set -e
+# set -e
 
 now=$(date +"%Y%m%d_%H.%M.%S")
 log_dir="$HOME/logs"
@@ -146,7 +146,7 @@ brew tap teamookla/speedtest
 # Check if speedtest is already installed
 reinstall_speedtest=false
 for b_speed in ${speed[@]}; do
-  if brew list --cask "${b_speed}" > /dev/null 2>&1; then
+  if brew list "${b_speed}" > /dev/null 2>&1; then
     read -q "reply_reinstall_speed?Speedtest is already installed. Reinstall? [y|N] "
     print "\n"
     if [[ $reply_reinstall_speed == y ]]; then
@@ -156,12 +156,11 @@ for b_speed in ${speed[@]}; do
   fi
 done
 
-brew tap teamookla/speedtest
 for b_speed in ${speed[@]}; do
   if [[ $reinstall_speedtest == true ]]; then
-    cask_install ${b_speed} --reinstall
+    brew_install ${b_speed} --reinstall
   else
-    cask_install ${b_speed}
+    brew_install ${b_speed} --force
   fi
 done
 

@@ -7,7 +7,7 @@
 #
 
 # Exit on any error
-set -e
+#set -e
 
 now=$(date +"%Y%m%d_%H.%M.%S")
 log_dir="$HOME/logs"
@@ -28,19 +28,23 @@ if [[ ${#gdrive_dirs[@]} -eq 0 ]]; then
   # No multi-account setup found, check for single account
   if [[ -d "$HOME/Google Drive/My Drive" ]]; then
     gdrive="$HOME/Google Drive/My Drive"
+    echo $gdrive
   else
     gdrive=""
+    echo "No Google Drive directory found"
   fi
 elif [[ ${#gdrive_dirs[@]} -eq 1 ]]; then
   # Exactly one multi-account directory found
   gdrive="${gdrive_dirs[1]}"
+  echo $gdrive
 else
   # Multiple Google Drive accounts found
-  bot "Multiple Google Drive accounts detected"
+  #bot "Multiple Google Drive accounts detected"
   print "Please select which account contains your keys:\n"
   local i=1
   for gd in "${gdrive_dirs[@]}"; do
-    print "  ${i}) ${gd:t:r}"
+    account_name="${${gd:h:t}% - Google Drive*}"
+    print "  ${i}) ${account_name}"
     ((i++))
   done
   read -r "gdrive_choice?Enter number (1-${#gdrive_dirs[@]}): "
@@ -61,14 +65,6 @@ hist_files=(
 
 clear
 bot "commence personalization"
-
-# Ask for username (ssh keys)
-read -r "reply_username?Which username? "
-print "\n"
-
-# Ask if this a work or personal system
-read -q "reply_work?Is this a work laptop? [y|N] "
-print "\n"
 
 # Ask for the administrator password upfront
 bot "please enter your password for front loading..."
@@ -111,16 +107,16 @@ else
   done
 fi
 
-
-
+# Set correct permissions
 chmod 700 $HOME/.ssh && chmod 600 $HOME/.ssh/*
+
+# Update authorized_keys
 running "updating authorized_keys..."
 cat $HOME/.ssh/id_ed25519.pub > $HOME/.ssh/authorized_keys
-if [[ $reply_work == y ]]; then
-  cat "$HOME/.ssh/${reply_username}_"*.pub >> $HOME/.ssh/authorized_keys
-fi
-ok
+chmod 600 $HOME/.ssh/authorized_keys
+print -n "\tupdated"; ok
 
+# Create ssh config symlink
 bot "ssh config setup"
 action "creating symlinks for ssh config..."
 
@@ -158,6 +154,8 @@ for file in $HOME/.dotfiles/homedir/.*; do
 done
 
 # 1Password working directory and Symlink
+bot "1Password setup"
+action "creating 1Password working directory and symlink..."
 if [[ -d $HOME/.1password ]]; then
   running "1Password working directory already exist"
   ok
@@ -170,36 +168,11 @@ else
   print -n "\tlinked"; ok
 fi
 
-
-# Symlink for .gitconfig
-#action "creating gitconfig symlink"
-#if [[ -L $HOME/.gitconfig ]]; then
-#  print "\tgitconfig symlinks already exist"
-#  read -q "reply_sym?Do you want to recreate symlink? [y|N]"
-#  print "\n"
-#  if [[ $reply_sym == y ]]; then
-#    # symlink might still exist
-#    unlink $HOME/.gitconfig > /dev/null 2>&1
-#    read -q "reply_work?Is this system for work? [y|N] "
-#    print "\n"
-#      if [[ $reply_work == y ]]; then
-#        running "creating symlink for work..."
-#        ln -s $HOME/.dotfiles/homedir/.gitconfig_work $HOME/.gitconfig
-#        print "\n\tlinked"; ok
-#      else
-#        running "creating symlink for personal..."
-#        ln -s $HOME/.dotfiles/homedir/.gitconfig $HOME/.gitconfig
-#        print "\n\tlinked"; ok
-#      fi
-#  else
-#    running "skipping..."
-#    ok
-#  fi
-#fi
-
 # # ###########################################################
 # # Git Config
 # # ###########################################################
+bot "Setting up .gitconfig"
+# Check if .gitconfig contains placeholder values
 grep 'username = GIT_USER' $HOME/.gitconfig > /dev/null 2>&1
 if [[ $? = 0 ]]; then
   bot "Updating .gitconfig with your user info:"
@@ -225,10 +198,10 @@ if [[ $? = 0 ]]; then
     fi
 
   running "replacing items in .gitconfig with your info ($COL_YELLOW$name, $email, $git_user$COL_RESET)"
-  gsed -i 's/GIT_NAME/'$name'/' $HOME/.gitconfig
-  gsed -i 's/GIT_EMAIL/'$email'/' $HOME/.gitconfig
-  gsed -i 's/GIT_USER/'$git_user'/' $HOME/.gitconfig
-  gsed -i 's/GIT_SSH_PUBKEY/'$git_ssh_pubkey'/' $HOME/.gitconfig
+  sed -i 's/GIT_NAME/'$name'/' $HOME/.gitconfig
+  sed -i 's/GIT_EMAIL/'$email'/' $HOME/.gitconfig
+  sed -i 's/GIT_USER/'$git_user'/' $HOME/.gitconfig
+  sed -i 's/GIT_SSH_PUBKEY/'$git_ssh_pubkey'/' $HOME/.gitconfig
 fi
 
 bot "configuring macos"
