@@ -1,46 +1,28 @@
-#!/usr/bin/env zsh
-
-#
-# macOS preferences configuration script
-# Optimized for macOS Tahoe (15.x) and above
-#
-# This should be idempotent so it can be run multiple times.
-#
-# References:
-# - https://github.com/mathiasbynens/dotfiles/blob/master/.macos
-# - https://macos-defaults.com/
-# - https://github.com/kevinSuttle/macOS-Defaults
-
-# Exit on any error
-set -e
-
-now=$(date +"%Y%m%d_%H.%M.%S")
-log_dir="$HOME/logs"
-logfile="macos-preferences_$now.log"
-
-source ./libs/echos.sh
-source ./libs/installers.sh
-
-# Check if running on macOS and in correct directory
-check_os
-check_directory
-
 ######################################## End of settings ######################
 
-# Close any open System Settings panes, to prevent them from overriding
-# settings we're about to change
-running "closing any system settings to prevent issues with automated changes"
-osascript -e 'tell application "System Preferences" to quit' 2>/dev/null || true
-osascript -e 'tell application "System Settings" to quit' 2>/dev/null || true
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+running "closing any system preferences to prevent issues with automated changes"
+osascript -e 'tell application "System Preferences" to quit'
 ok
 
-# Note: Administrator password should be handled by the calling script
+# Ask for the administrator password upfront
+#bot "please enter your password for front loading..."
+#sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
+#while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
 
-# Set computer label & name (as done via System Preferences → Sharing)
+#sudo scutil --set ComputerName ${sys_name}
+#sudo scutil --set HostName ${sys_name}
+#sudo scutil --set LocalHostName ${sys_name}
+#sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string ${sys_name}
+
+## # Set computer label & name (as done via System Preferences → Sharing)
 read "mac_os_label?What is this machine's label (Example: Phil's MacBook Pro ) ? "
 if [[ -z "$mac_os_label" ]]; then
   warn "ERROR: Invalid MacOS label."
@@ -81,11 +63,19 @@ running "sidebar size to small"
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1; ok
 
 ###############################################################################
-bot "configure desktop, dock, and hot corners"
+bot "configure desktop & screen saver , dock, and hot corners"
 ###############################################################################
 
-## # Lock screen settings
-running "require password immediately after sleep or screen saver begins"
+## # Set Screensaver
+#defaults -currentHost write com.apple.screensaver modulePath -string "/System/Library/Screen Savers/Flurry.saver"
+#defaults -currentHost write com.apple.screensaver moduleName -string "Flurry"
+running "screen saver → flurry"
+defaults -currentHost write com.apple.screensaver moduleDict -dict moduleName Flurry path /System/Library/Screen\ Savers/Flurry.saver/ type 0
+defaults -currentHost write com.apple.screensaver idleTime 600
+defaults -currentHost write com.apple.screensaver showClock -bool true; ok
+
+## # Require password as soon as screensaver or sleep mode starts
+running "screen saver password"
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0; ok
 
@@ -107,136 +97,98 @@ defaults write com.apple.dock minimize-to-application -bool true; ok
     #  4: Desktop
     #  5: Start screen saver
     #  6: Disable screen saver
+    #  7: Dashboard
     # 10: Put display to sleep
     # 11: Launchpad
     # 12: Notification Center
     # 13: Lock Screen
-    # 14: Quick Note
-## # Top left screen corner → Mission Control
-running "top left corner → mission control"
-defaults write com.apple.dock wvous-tl-corner -int 2
+## # Top left screen corner → Start Screen Saver
+running "top left corner → start screen saver"
+defaults write com.apple.dock wvous-tl-corner -int 5
 defaults write com.apple.dock wvous-tl-modifier -int 0; ok
 ## # Top right screen corner → Put Display to Sleep
-running "top right corner → put display to sleep"
+running "top right corner → Put Display to Sleep"
 defaults write com.apple.dock wvous-tr-corner -int 10
 defaults write com.apple.dock wvous-tr-modifier -int 0; ok
 ## # Bottom right screen corner → Lock Screen
-running "bottom right corner → lock screen"
+running "bottom right corner → Lock Screen"
 defaults write com.apple.dock wvous-br-corner -int 13
 defaults write com.apple.dock wvous-br-modifier -int 0; ok
 
 ##############################################################################
-bot "configure security and privacy"
+bot "configure security"
 ##############################################################################
 # Based on:
 # https://github.com/drduh/macOS-Security-and-Privacy-Guide
-# https://www.cisecurity.org/cis-benchmarks
+# https://benchmarks.cisecurity.org/tools2/osx/CIS_Apple_OSX_10.12_Benchmark_v1.0.0.pdf
 
-# Enable Application Firewall
-running "enable application firewall"
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on; ok
+# Enable firewall. Possible values:
+#   0 = off
+#   1 = on for specific sevices
+#   2 = on for essential services
+running "enable firewall"
+sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1
 
 # Enable firewall stealth mode (no response to ICMP / ping requests)
-running "enable firewall stealth mode"
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on; ok
-
-# Enable automatic firewall logging
-running "enable firewall logging"
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setloggingmode on; ok
-
-# Disable guest user account
-running "disable guest user account"
-sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false; ok
-
-# Disable automatic login
-running "disable automatic login"
-sudo defaults delete /Library/Preferences/com.apple.loginwindow autoLoginUser 2>/dev/null || true; ok
+# Source: https://support.apple.com/kb/PH18642
+#sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -int 1
+sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -int 1; ok
 
 ###############################################################################
 bot "configure trackpad"
 ###############################################################################
 
 ## # Trackpad: enable tap to click for user and login screen
-running "enable tap to click"
+running "setting tap and drag"
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1; ok
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
-## # Trackpad: enable three finger drag (modern approach via Accessibility)
-running "enable three finger drag"
-defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true; ok
-
-## # Trackpad: enable natural scrolling
-running "enable natural scrolling"
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool true; ok
+## # Trackpad: enable three finger drag
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true; ok
 
 ###############################################################################
 bot "configure keyboard"
 ###############################################################################
-
-running "remove input source from menu bar"
+running "remove input source from menu"
 defaults write com.apple.TextInputMenuAgent.plist "NSStatusItem Visible Item-0" -int 0; ok
 
-running "enable key repeat and reduce delay"
-defaults write NSGlobalDomain KeyRepeat -int 2
-defaults write NSGlobalDomain InitialKeyRepeat -int 15; ok
-
-running "disable automatic capitalization"
-defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false; ok
-
-running "disable automatic period substitution"
-defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false; ok
-
-running "disable smart quotes"
-defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false; ok
-
-running "disable smart dashes"
-defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false; ok
-
 ###############################################################################
-bot "configure software update"
+bot "configure software update"                                                             #
 ###############################################################################
 
-running "enable automatic software updates"
+running "software update preferences"
 sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticallyInstallMacOSUpdates -bool true
 sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
 sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate CriticalUpdateInstall -bool true
-sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate ConfigDataInstall -bool true
-sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool true; ok
-
-running "enable automatic app store updates"
-defaults write com.apple.commerce AutoUpdate -bool true; ok
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate ConfigDataInstall -bool true; ok
+# defaults write com.apple.commerce AutoUpdate -bool true
 
 ###############################################################################
 bot "configure sharing"
 ###############################################################################
 
-## # Screen Sharing (modernized for macOS 15+)
+## # Screen Sharing
 running "enable screen sharing"
-sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.screensharing.plist 2>/dev/null || true; ok
+sudo defaults write /var/db/launchd.db/com.apple.launchd/overrides.plist com.apple.screensharing -dict Disabled -bool false
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.screensharing.plist; ok
 
-## # Remote Login (SSH) 
-running "enable remote login (SSH)"
+## # Remote login (SSH); Allow Administrators
+running "enable remote login"
 sudo systemsetup -setremotelogin on; ok
-
-## # AirDrop over Ethernet and Internet
-running "enable airdrop over ethernet and internet"
-defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true; ok
+#dseditgroup -o create -q com.apple.access_ssh
+#dseditgroup -o edit -a Administrators -t group com.apple.access_ssh; ok
+# For user
+# dseditgroup -o create -q username -t user com.apple.access_ssh
 
 ###############################################################################
-bot "configure control center and menu bar"
+bot "configure battery display"
 ###############################################################################
 
-running "show battery percentage in menu bar"
-defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist BatteryShowPercentage -bool true; ok
-
-running "show bluetooth in menu bar"
-defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Bluetooth -int 18; ok
-
-running "show wifi in menu bar"
-defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist WiFi -int 18; ok
+running "show battery %"
+defaults write com.apple.menuextra.battery ShowPercent -string 'Yes'; ok
 
 ###############################################################################
 bot "configure date and time"
@@ -337,23 +289,6 @@ defaults write com.apple.finder FXPreferredViewStyle -string "clmv"; ok
 running "keep folders on top when sorting"
 defaults write com.apple.finder _FXSortFoldersFirst -bool true; ok
 
-# Show path bar and status bar
-running "show finder path bar and status bar"
-defaults write com.apple.finder ShowPathbar -bool true
-defaults write com.apple.finder ShowStatusBar -bool true; ok
-
-# Show all filename extensions
-running "show all filename extensions"
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true; ok
-
-# Disable the warning when changing a file extension
-running "disable file extension change warning"
-defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false; ok
-
-# Enable spring loading for directories
-running "enable spring loading for directories"
-defaults write NSGlobalDomain com.apple.springing.enabled -bool true; ok
-
 ################################################################################
 #bot "configure safari" # No longer functions for Mojave
 ################################################################################
@@ -376,15 +311,3 @@ defaults write NSGlobalDomain com.apple.springing.enabled -bool true; ok
 ## Enable “Do Not Track”
 #running "enable 'do no track'"
 #defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true; ok
-################################################################################
-bot "restart affected applications"
-################################################################################
-
-running "restarting affected applications"
-# Kill affected applications to apply settings
-for app in "Dock" "Finder" "SystemUIServer" "ControlCenter"; do
-  killall "${app}" &> /dev/null || true
-done; ok
-
-running "system configuration complete"
-bot "Restart your Mac to ensure all settings take effect"; ok
