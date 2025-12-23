@@ -198,7 +198,6 @@ if [[ $? = 0 ]]; then
     fi
 
   running "replacing items in .gitconfig with your info ($COL_YELLOW$name, $email, $git_user$COL_RESET)"
-  #export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
   /opt/homebrew/opt/gnu-sed/libexec/gnubin/sed -i 's/GIT_NAME/'$name'/' $HOME/.gitconfig
   /opt/homebrew/opt/gnu-sed/libexec/gnubin/sed -i 's/GIT_EMAIL/'$email'/' $HOME/.gitconfig
   /opt/homebrew/opt/gnu-sed/libexec/gnubin/sed -i 's/GIT_USER/'$git_user'/' $HOME/.gitconfig
@@ -272,13 +271,16 @@ if [[ -L $HOME/.dotfiles ]]; then
 else
   running "creating dotfiles symlink..."
   read -r "reply_git_repo_username?Whose git repo do you want to clone? "
-  read -r "reply_git_repo?Do you want to use ssh or https for cloning repo? [ssh|https] "
-  print "\n"
-  if [[ $reply_git_repo == ssh ]]; then
-    git clone git@github.com:$reply_git_repo_username/dotfiles.git $HOME/projects/dotfiles
-  else
-    git clone https://github.com/$reply_git_repo_username/dotfiles $HOME/projects/dotfiles
-  fi
+  action "cloning git repo from $reply_git_repo_username"
+  #read -r "reply_git_repo?Do you want to use ssh or https for cloning repo? [ssh|https] "
+  #print "\n"
+  #if [[ $reply_git_repo == ssh ]]; then
+  #  git clone git@github.com:$reply_git_repo_username/dotfiles.git $HOME/projects/dotfiles
+  #else
+  #  git clone https://github.com/$reply_git_repo_username/dotfiles $HOME/projects/dotfiles
+  #fi
+
+  git clone https://github.com/$reply_git_repo_username/dotfiles $HOME/projects/dotfiles
 
   rm -rf $HOME/.dotfiles
   ln -s $HOME/projects/dotfiles $HOME/.dotfiles
