@@ -46,9 +46,9 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Check for Homebrew, install if we don't have it
-bot "install homebrew. Press Return to continue..."
+bot "install homebrew"
 if ! command -v brew &> /dev/null; then
-  action "installing homebrew..."
+  action "installing homebrew... Press RETURN to continue"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" &>> ${log_dir}/${logfile}
   
   # Setup Homebrew PATH for Apple Silicon Macs
