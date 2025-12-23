@@ -198,11 +198,11 @@ if [[ $? = 0 ]]; then
     fi
 
   running "replacing items in .gitconfig with your info ($COL_YELLOW$name, $email, $git_user$COL_RESET)"
-  export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-  gsed -i 's/GIT_NAME/'$name'/' $HOME/.gitconfig
-  gsed -i 's/GIT_EMAIL/'$email'/' $HOME/.gitconfig
-  gsed -i 's/GIT_USER/'$git_user'/' $HOME/.gitconfig
-  gsed -i 's/GIT_SSH_PUBKEY/'$git_ssh_pubkey'/' $HOME/.gitconfig
+  #export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+  /opt/homebrew/opt/gnu-sed/libexec/gnubin/sed -i 's/GIT_NAME/'$name'/' $HOME/.gitconfig
+  /opt/homebrew/opt/gnu-sed/libexec/gnubin/sed -i 's/GIT_EMAIL/'$email'/' $HOME/.gitconfig
+  /opt/homebrew/opt/gnu-sed/libexec/gnubin/sed -i 's/GIT_USER/'$git_user'/' $HOME/.gitconfig
+  /opt/homebrew/opt/gnu-sed/libexec/gnubin/sed -i 's/GIT_SSH_PUBKEY/'$git_ssh_pubkey'/' $HOME/.gitconfig
   # sed -i '' 's/GIT_NAME/'$name'/' $HOME/.gitconfig
   # sed -i '' 's/GIT_EMAIL/'$email'/' $HOME/.gitconfig
   # sed -i '' 's/GIT_USER/'$git_user'/' $HOME/.gitconfig
