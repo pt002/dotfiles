@@ -213,6 +213,10 @@ bot "configure date and time"
 running "set full date format (24 hour clock with seconds) in menu bar"
 defaults write com.apple.menuextra.clock DateFormat -string 'EEE MMM d  HH:mm:ss'; ok
 
+running "show 24-hour time and seconds"
+defaults write com.apple.menuextra.clock "Show24Hour" -int 1
+defaults write com.apple.menuextra.clock "ShowSeconds" -int 1; ok
+
 ###############################################################################
 bot "configure finder and desktop views"
 ###############################################################################
