@@ -237,22 +237,32 @@ ok
 bot "configure terminal & iterm2"
 ###############################################################################
 
+running "installing dark themes for term (opening file)"
+open "./configs/pt_shell.terminal"; ok
+
+running "set terminal default profile"
+defaults write com.apple.Terminal "Default Window Settings" -string "pt_shell"
+defaults write com.apple.Terminal "Startup Window Settings" -string "pt_shell"; ok
+
 running "installing dark themes for iterm (opening file)"
 open "./configs/Solarized Darcula.itermcolors"
 open "./configs/Solarized Dark Higher Contrast.itermcolors"
 open "./configs/SpaceGray.itermcolors"; ok
-
-running "installing dark themes for term (opening file)"
-open "./configs/pt_shell.terminal"; ok
-
-running "set normal font"
-defaults write com.googlecode.iterm2 "Normal Font" -string "HackNerdFontComplete-Regular 12"; ok
 
 running "configuring iterm preferences"
 defaults write com.googlecode.iterm2 PromptOnQuit 0
 defaults write com.googlecode.iterm2 QuitWhenAllWindowsClosed 1
 defaults write com.googlecode.iterm2 TabStyleWithAutomaticOption 5
 defaults write com.googlecode.iterm2 TabViewType 0; ok
+
+running "set normal font"
+defaults write com.googlecode.iterm2 "Normal Font" -string "HackNerdFont-Regular 11"; ok
+
+running "dynamic profiles setup"
+if [[ ! -d $HOME/Library/Application\ Support/iTerm2/DynamicProfiles ]]; then
+  mkdir -p $HOME/Library/Application\ Support/iTerm2/DynamicProfiles
+fi
+cp -f $HOME/.dotfiles/configs/pt_shell.json $HOME/Library/Application\ Support/iTerm2/DynamicProfiles/; ok
 
 ###############################################################################
 bot "configure moom"
