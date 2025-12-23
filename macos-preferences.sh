@@ -240,6 +240,10 @@ defaults write com.apple.finder ShowHardDrivesOnDesktop         -bool false
 defaults write com.apple.finder ShowMountedServersOnDesktop     -bool false
 defaults write com.apple.finder ShowRemovableMediaOnDesktop     -bool false; ok
 
+# Hide desktop widgets
+running "hide desktop widgets"
+defaults write com.apple.WindowManager StandardHideWidgets -bool true; ok
+
 # # Set icon view settings on desktop and in icon views
 # running "set icon view settings and options"
 # for view in 'Desktop' 'FK_Standard' 'Standard'; do
