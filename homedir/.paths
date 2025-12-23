@@ -3,7 +3,7 @@
 gnu_utils=(
   coreutils
   findutils
-  inetutils
+  #inetutils
   gnu-sed
   grep
 )
