@@ -154,7 +154,7 @@ for file in $HOME/.dotfiles/homedir/.*; do
 done
 
 # 1Password working directory and Symlink
-bot "1Password setup"
+bot "1P setup"
 action "creating 1Password working directory and symlink..."
 if [[ -d $HOME/.1password ]]; then
   running "1Password working directory already exist"
@@ -171,7 +171,7 @@ fi
 # # ###########################################################
 # # Git Config
 # # ###########################################################
-bot "Setting up .gitconfig"
+bot "preparing .gitconfig"
 # Check if .gitconfig contains placeholder values
 grep 'username = GIT_USER' $HOME/.gitconfig > /dev/null 2>&1
 if [[ $? = 0 ]]; then
