@@ -189,9 +189,9 @@ bot "configure sharing"
 running "enable screen sharing"
 sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.screensharing.plist 2>/dev/null || true; ok
 
-## # Remote Login (SSH) 
-running "enable remote login (SSH)"
-sudo systemsetup -setremotelogin on; ok
+# ## # Remote Login (SSH) 
+# running "enable remote login (SSH)"
+# sudo systemsetup -setremotelogin on; ok
 
 ###############################################################################
 bot "configure control center and menu bar"
@@ -236,59 +236,59 @@ defaults write com.apple.finder ShowHardDrivesOnDesktop         -bool false
 defaults write com.apple.finder ShowMountedServersOnDesktop     -bool false
 defaults write com.apple.finder ShowRemovableMediaOnDesktop     -bool false; ok
 
-## Set icon view settings on desktop and in icon views
-#running "set icon view settings and options"
-#for view in 'Desktop' 'FK_Standard' 'Standard'; do
-#
-#  # Snap-to-grid for icons
-#  #/usr/libexec/PlistBuddy -c "Set :${view}ViewSettings:IconViewSettings:arrangeBy string grid" $HOME/Library/Preferences/com.apple.finder.plist
-#
-#  # Grid spacing for icons
-#  /usr/libexec/PlistBuddy -c "Set :${view}ViewSettings:IconViewSettings:gridSpacing 1" $HOME/Library/Preferences/com.apple.finder.plist
-#
-#  # Icon size
-#  /usr/libexec/PlistBuddy -c "Set :${view}ViewSettings:IconViewSettings:iconSize 16" $HOME/Library/Preferences/com.apple.finder.plist
-#
-#  # Text size
-#  /usr/libexec/PlistBuddy -c "Set :${view}ViewSettings:IconViewSettings:textSize 10" $HOME/Library/Preferences/com.apple.finder.plist
-#
-#done
-#ok
-#
-## Set list view settings
-#running "set list view settings and options"
-#for view in 'FK_Standard' 'Standard'; do
-#
-#  # Icon size
-#  /usr/libexec/PlistBuddy -c "Set :${view}ViewSettings:ListViewSettings:iconSize 16" $HOME/Library/Preferences/com.apple.finder.plist
-#
-#  # Text size
-#  /usr/libexec/PlistBuddy -c "Set :${view}ViewSettings:ListViewSettings:textSize 10" $HOME/Library/Preferences/com.apple.finder.plist
-#
-#done
-#ok
-#
-## View Options
-## ColumnShowIcons    : Show preview column
-## ShowPreview        : Show icons
-## ShowIconThumbnails : Show icon preview
-## ArrangeBy          : Sort by
-##   dnam : Name
-##   kipl : Kind
-##   ludt : Date Last Opened
-##   pAdd : Date Added
-##   modd : Date Modified
-##   ascd : Date Created
-##   logs : Size
-##   labl : Tags
-#running "set column view settings and options"
-#/usr/libexec/PlistBuddy \
-#    -c "Set :StandardViewOptions:ColumnViewOptions:ColumnShowIcons true" \
-#    -c "Set :StandardViewOptions:ColumnViewOptions:FontSize        10"    \
-#    -c "Set :StandardViewOptions:ColumnViewOptions:ShowPreview     true"  \
-#    -c "Set :StandardViewOptions:ColumnViewOptions:ArrangeBy       dnam"  \
-#    $HOME/Library/Preferences/com.apple.finder.plist
-#ok
+# # Set icon view settings on desktop and in icon views
+# running "set icon view settings and options"
+# for view in 'Desktop' 'FK_Standard' 'Standard'; do
+# 
+#   # Snap-to-grid for icons
+#   #/usr/libexec/PlistBuddy -c "Set :${view}ViewSettings:IconViewSettings:arrangeBy string grid" $HOME/Library/Preferences/com.apple.finder.plist
+# 
+#   # Grid spacing for icons
+#   /usr/libexec/PlistBuddy -c "Set :${view}ViewSettings:IconViewSettings:gridSpacing 1" $HOME/Library/Preferences/com.apple.finder.plist
+# 
+#   # Icon size
+#   /usr/libexec/PlistBuddy -c "Set :${view}ViewSettings:IconViewSettings:iconSize 16" $HOME/Library/Preferences/com.apple.finder.plist
+# 
+#   # Text size
+#   /usr/libexec/PlistBuddy -c "Set :${view}ViewSettings:IconViewSettings:textSize 10" $HOME/Library/Preferences/com.apple.finder.plist
+# 
+# done
+# ok
+# 
+# # Set list view settings
+# running "set list view settings and options"
+# for view in 'FK_Standard' 'Standard'; do
+# 
+#   # Icon size
+#   /usr/libexec/PlistBuddy -c "Set :${view}ViewSettings:ListViewSettings:iconSize 16" $HOME/Library/Preferences/com.apple.finder.plist
+# 
+#   # Text size
+#   /usr/libexec/PlistBuddy -c "Set :${view}ViewSettings:ListViewSettings:textSize 10" $HOME/Library/Preferences/com.apple.finder.plist
+# 
+# done
+# ok
+# 
+# # View Options
+# # ColumnShowIcons    : Show preview column
+# # ShowPreview        : Show icons
+# # ShowIconThumbnails : Show icon preview
+# # ArrangeBy          : Sort by
+# #   dnam : Name
+# #   kipl : Kind
+# #   ludt : Date Last Opened
+# #   pAdd : Date Added
+# #   modd : Date Modified
+# #   ascd : Date Created
+# #   logs : Size
+# #   labl : Tags
+# running "set column view settings and options"
+# /usr/libexec/PlistBuddy \
+#     -c "Set :StandardViewOptions:ColumnViewOptions:ColumnShowIcons true" \
+#     -c "Set :StandardViewOptions:ColumnViewOptions:FontSize        10"    \
+#     -c "Set :StandardViewOptions:ColumnViewOptions:ShowPreview     true"  \
+#     -c "Set :StandardViewOptions:ColumnViewOptions:ArrangeBy       dnam"  \
+#     $HOME/Library/Preferences/com.apple.finder.plist
+# ok
 
 # Preferred view style
 # Icon View   : `icnv`
