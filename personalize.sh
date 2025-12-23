@@ -198,10 +198,15 @@ if [[ $? = 0 ]]; then
     fi
 
   running "replacing items in .gitconfig with your info ($COL_YELLOW$name, $email, $git_user$COL_RESET)"
-  sed -i 's/GIT_NAME/'$name'/' $HOME/.gitconfig
-  sed -i 's/GIT_EMAIL/'$email'/' $HOME/.gitconfig
-  sed -i 's/GIT_USER/'$git_user'/' $HOME/.gitconfig
-  sed -i 's/GIT_SSH_PUBKEY/'$git_ssh_pubkey'/' $HOME/.gitconfig
+  export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+  gsed -i 's/GIT_NAME/'$name'/' $HOME/.gitconfig
+  gsed -i 's/GIT_EMAIL/'$email'/' $HOME/.gitconfig
+  gsed -i 's/GIT_USER/'$git_user'/' $HOME/.gitconfig
+  gsed -i 's/GIT_SSH_PUBKEY/'$git_ssh_pubkey'/' $HOME/.gitconfig
+  # sed -i '' 's/GIT_NAME/'$name'/' $HOME/.gitconfig
+  # sed -i '' 's/GIT_EMAIL/'$email'/' $HOME/.gitconfig
+  # sed -i '' 's/GIT_USER/'$git_user'/' $HOME/.gitconfig
+  # sed -i '' 's/GIT_SSH_PUBKEY/'$git_ssh_pubkey'/' $HOME/.gitconfig
 fi
 
 bot "configuring macos"
