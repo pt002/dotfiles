@@ -12,7 +12,7 @@
 # - https://github.com/kevinSuttle/macOS-Defaults
 
 # Exit on any error
-set -e
+#set -e
 
 now=$(date +"%Y%m%d_%H.%M.%S")
 log_dir="$HOME/logs"
@@ -79,6 +79,10 @@ defaults write NSGlobalDomain AppleHighlightColor -string "0.847059 0.847059 0.8
 ## # Sidebar size: Small
 running "sidebar size to small"
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1; ok
+
+## # Wallpaper: Solid black
+running "setting desktop wallpaper to solid black"
+osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/System/Library/Desktop Pictures/Solid Colors/Black.png"'; ok
 
 ###############################################################################
 bot "configure desktop, dock, and hot corners"
@@ -173,13 +177,9 @@ bot "configure software update"
 
 running "enable automatic software updates"
 sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticallyInstallMacOSUpdates -bool true
-sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
 sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate CriticalUpdateInstall -bool true
 sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate ConfigDataInstall -bool true
 sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool true; ok
-
-running "enable automatic app store updates"
-defaults write com.apple.commerce AutoUpdate -bool true; ok
 
 ###############################################################################
 bot "configure sharing"
@@ -193,10 +193,6 @@ sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.screensharing.pli
 running "enable remote login (SSH)"
 sudo systemsetup -setremotelogin on; ok
 
-## # AirDrop over Ethernet and Internet
-running "enable airdrop over ethernet and internet"
-defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true; ok
-
 ###############################################################################
 bot "configure control center and menu bar"
 ###############################################################################
@@ -207,8 +203,8 @@ defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Batter
 running "show bluetooth in menu bar"
 defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Bluetooth -int 18; ok
 
-running "show wifi in menu bar"
-defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist WiFi -int 18; ok
+running "show sound in menu bar"
+defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Sound -int 18; ok
 
 ###############################################################################
 bot "configure date and time"
@@ -216,6 +212,9 @@ bot "configure date and time"
 
 running "set full date format"
 defaults write com.apple.menuextra.clock DateFormat -string 'EEE MMM d  H:mm:ss'; ok
+
+running "show 24-hour time"
+defaults write com.apple.menuextra.clock Show24Hour -int 1; ok
 
 ###############################################################################
 bot "configure finder and desktop views"
