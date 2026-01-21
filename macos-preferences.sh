@@ -318,10 +318,6 @@ running "show finder path bar and status bar"
 defaults write com.apple.finder ShowPathbar -bool true
 defaults write com.apple.finder ShowStatusBar -bool true; ok
 
-# Show all filename extensions
-running "show all filename extensions"
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true; ok
-
 # Disable the warning when changing a file extension
 running "disable file extension change warning"
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false; ok

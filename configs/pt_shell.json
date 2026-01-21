@@ -1,4 +1,8 @@
 {
+  "Profiles": [
+    { "Name": "pt_shell",
+      "Guid": "pt_shell" }
+  ],
   "Use Non-ASCII Font" : false,
   "Tags" : [
 
