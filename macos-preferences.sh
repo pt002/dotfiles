@@ -246,8 +246,7 @@ defaults write com.apple.WindowManager StandardHideWidgets -bool true; ok
 
 # Set icon view settings on desktop and in icon views
 running "set icon view settings and options"
-#for view in 'Desktop' 'FK_Standard' 'Standard'; do
-for view in 'Desktop'; do
+for view in 'Desktop' 'FK_Standard' 'Standard'; do
 
   # Snap-to-grid for icons
   #/usr/libexec/PlistBuddy -c "Set :${view}ViewSettings:IconViewSettings:arrangeBy string grid" $HOME/Library/Preferences/com.apple.finder.plist
