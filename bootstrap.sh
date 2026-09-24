@@ -143,6 +143,7 @@ done
 
 bot "installing speedtest"
 brew tap teamookla/speedtest
+brew trust teamookla/speedtest
 # Check if speedtest is already installed
 reinstall_speedtest=false
 for b_speed in ${speed[@]}; do
